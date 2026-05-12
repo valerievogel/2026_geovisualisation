@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Involved — Sport for Development Hub</title>
+  <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <span class="brand">Sport for Development Hub</span>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    <div class="nav-links" role="list">
+      <a href="index.html" role="listitem">Home</a>
+      <a href="about.html" role="listitem">About</a>
+      <a href="map.html" role="listitem">Project Map</a>
+      <a href="volunteer.html" class="active" role="listitem">Get Involved</a>
+      <a href="contact.html" role="listitem">Contact</a>
+    </div>
+  </nav>
+
+  <main class="page-content">
+    <h1>Get Involved</h1>
+
+    <section aria-labelledby="volunteer-heading">
+      <h2 id="volunteer-heading">How to Volunteer</h2>
+      <p class="placeholder-text">[CONTENT TO BE ADDED] — Step-by-step guide on how to find and apply for volunteer opportunities in Sport for Development projects.</p>
+    </section>
+
+    <section aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+      <p class="placeholder-text">[CONTENT TO BE ADDED] — FAQ covering common questions about volunteering abroad, required skills, duration, funding, and what to expect.</p>
+    </section>
+
+    <section aria-labelledby="orgs-heading">
+      <h2 id="orgs-heading">Partner Organisations</h2>
+      <p class="placeholder-text">[CONTENT TO BE ADDED] — List of key organisations offering volunteer placements, with links to their websites.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Valerie Vogel &mdash; Master in Development and Environment, UNIL &mdash; Projet de Géovisualisation</p>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const links  = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+  </script>
+
+</body>
+</html>

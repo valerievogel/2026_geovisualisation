@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Sport for Development Hub</title>
+  <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <span class="brand">Sport for Development Hub</span>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    <div class="nav-links" role="list">
+      <a href="index.html" role="listitem">Home</a>
+      <a href="about.html" role="listitem">About</a>
+      <a href="map.html" role="listitem">Project Map</a>
+      <a href="volunteer.html" role="listitem">Get Involved</a>
+      <a href="contact.html" class="active" role="listitem">Contact</a>
+    </div>
+  </nav>
+
+  <main class="page-content">
+    <h1>Contact</h1>
+    <p>
+      <strong>Valerie Vogel</strong><br>
+      Projet de Géovisualisation<br>
+      Master in Development and Environment<br>
+      University of Lausanne (UNIL)
+    </p>
+    <p>
+      <a href="mailto:valerie.vogel.1@unil.ch">valerie.vogel.1@unil.ch</a>
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <p>Valerie Vogel &mdash; Master in Development and Environment, UNIL &mdash; Projet de Géovisualisation</p>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const links  = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+  </script>
+
+</body>
+</html>

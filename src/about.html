@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About S4D — Sport for Development Hub</title>
+  <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <span class="brand">Sport for Development Hub</span>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    <div class="nav-links" role="list">
+      <a href="index.html" role="listitem">Home</a>
+      <a href="about.html" class="active" role="listitem">About</a>
+      <a href="map.html" role="listitem">Project Map</a>
+      <a href="volunteer.html" role="listitem">Get Involved</a>
+      <a href="contact.html" role="listitem">Contact</a>
+    </div>
+  </nav>
+
+  <main class="page-content">
+    <h1>About Sports for Development</h1>
+
+    <section aria-labelledby="s4d-heading">
+      <h2 id="s4d-heading">What is Sports for Development?</h2>
+      <p class="placeholder-text">[CONTENT TO BE ADDED] — Definition and background of the Sport for Development approach.</p>
+    </section>
+
+    <section aria-labelledby="thematics-heading">
+      <h2 id="thematics-heading">Thematics</h2>
+      <p class="placeholder-text">[CONTENT TO BE ADDED] — Overview of key themes with project examples (e.g. health, gender equality, refugee integration, peacebuilding).</p>
+    </section>
+
+    <section aria-labelledby="advantages-heading">
+      <h2 id="advantages-heading">Advantages</h2>
+      <p class="placeholder-text">[CONTENT TO BE ADDED] — Key benefits of using sport as a development tool.</p>
+    </section>
+
+    <section aria-labelledby="risks-heading">
+      <h2 id="risks-heading">Risks &amp; Challenges</h2>
+      <p class="placeholder-text">[CONTENT TO BE ADDED] — Known limitations and critical perspectives on the S4D approach.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Valerie Vogel &mdash; Master in Development and Environment, UNIL &mdash; Projet de Géovisualisation</p>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const links  = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+  </script>
+
+</body>
+</html>

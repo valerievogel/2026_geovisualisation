@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sport for Development Hub</title>
+  <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <span class="brand">Sport for Development Hub</span>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    <div class="nav-links" role="list">
+      <a href="index.html" class="active" role="listitem">Home</a>
+      <a href="about.html" role="listitem">About</a>
+      <a href="map.html" role="listitem">Project Map</a>
+      <a href="volunteer.html" role="listitem">Get Involved</a>
+      <a href="contact.html" role="listitem">Contact</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" aria-label="Introduction">
+      <h1>Connecting Sport with Development</h1>
+      <p>Connecting volunteers with sport-based development projects worldwide.</p>
+      <div class="hero-actions">
+        <a href="map.html" class="btn btn-primary">Explore the Map</a>
+        <a href="about.html" class="btn btn-outline">Learn More</a>
+      </div>
+    </section>
+
+    <div class="intro-cards">
+      <div class="intro-card">
+        <h3>What is Sport for Development?</h3>
+        <p>Sport for Development (S4D) uses sport as a vehicle for social change — tackling inequality, improving health, and building peace around the world.</p>
+      </div>
+      <div class="intro-card">
+        <h3>Find a Project</h3>
+        <p>Explore our interactive map of ongoing S4D projects worldwide. Filter by region, sport, topic, or skills needed to find the right opportunity for you.</p>
+      </div>
+      <div class="intro-card">
+        <h3>Get Involved</h3>
+        <p>Ready to volunteer? Learn about the different ways to contribute — from coaching to teaching to logistics — and find an organisation that matches your profile.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Valerie Vogel &mdash; Master in Development and Environment, UNIL &mdash; Projet de Géovisualisation</p>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const links  = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+  </script>
+
+</body>
+</html>
