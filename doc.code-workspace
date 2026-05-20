@@ -1,11 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "../doc"
-		},
-		{
 			"path": "."
-		}
+		},
 	],
 	"settings": {
 		"liveServer.settings.multiRootWorkspaceName": "projet"
