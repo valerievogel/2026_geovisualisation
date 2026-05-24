@@ -43,6 +43,15 @@ h1, h2, h3, h4 {
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+.page-content p a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.page-content p a:hover {
+  color: var(--accent);
+}
+
 /* ── Navigation ───────────────────────────────────────── */
 .site-nav {
   position: sticky;
@@ -126,6 +135,43 @@ a:hover { text-decoration: underline; }
 .page-content h1 { font-size: 2rem; margin-bottom: 1.5rem; }
 .page-content h2 { font-size: 1.4rem; margin: 2rem 0 .75rem; color: var(--primary); }
 .page-content p  { line-height: 1.7; margin-bottom: 1rem; color: #334e5e; }
+
+/* ── About page images ────────────────────────────────── */
+.about-image {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+/* ── Section sub-heading (text-like) ─────────────────── */
+.section-subhead {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--muted);
+  margin: 1.75rem 0 0.5rem;
+}
+
+/* ── Source list ──────────────────────────────────────── */
+.source-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.source-list a {
+  font-size: 0.95rem;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.source-list a:hover {
+  color: var(--accent);
+}
 
 /* ── Pull quote ───────────────────────────────────────── */
 .pull-quote {
