@@ -127,6 +127,41 @@ a:hover { text-decoration: underline; }
 .page-content h2 { font-size: 1.4rem; margin: 2rem 0 .75rem; color: var(--primary); }
 .page-content p  { line-height: 1.7; margin-bottom: 1rem; color: #334e5e; }
 
+/* ── Pull quote ───────────────────────────────────────── */
+.pull-quote {
+  position: relative;
+  margin: 1.75rem 3.5rem;
+  padding: 1.25rem 1.75rem 1.25rem 2rem;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #334e5e;
+  overflow: hidden;
+}
+
+.pull-quote::before {
+  content: '\201C';               /* opening curly " */
+  position: absolute;
+  top: -1.5rem;
+  left: -0.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 9rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pull-quote cite {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  font-style: normal;
+  color: var(--muted);
+}
+
 .placeholder-text {
   background: var(--bg);
   border-left: 4px solid var(--accent);
@@ -255,23 +290,28 @@ a:hover { text-decoration: underline; }
   text-align: center;
 }
 
-.filter-panel {
+/* Filter panel tray — sits between filter bar and map in normal flow */
+#filter-panel-tray {
   display: none;
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  min-width: 200px;
   background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  z-index: 300;
-  padding: .5rem 0;
-  max-height: 280px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
   overflow-y: auto;
+  max-height: 260px;
 }
 
-.filter-panel.open { display: block; }
+#filter-panel-tray.open { display: block; }
+
+.filter-panel {
+  display: none;
+  padding: .5rem 0;
+}
+
+.filter-panel.open {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .1rem 0;
+}
 
 .filter-option {
   display: flex;

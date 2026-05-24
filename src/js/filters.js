@@ -19,16 +19,20 @@ function initFilters(projects, callback) {
   onFilterChange = callback;
 
   const clearBtn = document.getElementById('clear-filters');
+  const tray     = document.getElementById('filter-panel-tray');
 
   FILTER_KEYS.forEach(({ key, label }) => {
     const values = collectValues(projects, key);
     if (values.length === 0) return;
-    const dropdown = buildDropdown(key, label, values);
-    document.getElementById('filter-bar').insertBefore(dropdown, clearBtn);
+    const { wrapper, panel } = buildDropdown(key, label, values);
+    document.getElementById('filter-bar').insertBefore(wrapper, clearBtn);
+    tray.appendChild(panel);
   });
 
   document.addEventListener('click', e => {
-    if (!e.target.closest('.filter-dropdown')) closeAllDropdowns();
+    if (!e.target.closest('.filter-dropdown') && !e.target.closest('#filter-panel-tray')) {
+      closeAllDropdowns();
+    }
   });
 
   clearBtn.addEventListener('click', clearAllFilters);
@@ -57,6 +61,7 @@ function buildDropdown(key, label, values) {
 
   const panel = document.createElement('div');
   panel.className = 'filter-panel';
+  panel.dataset.key = key;
   panel.setAttribute('role', 'listbox');
   panel.setAttribute('aria-multiselectable', 'true');
   panel.setAttribute('aria-label', label);
@@ -71,7 +76,7 @@ function buildDropdown(key, label, values) {
     cb.value = value;
 
     cb.addEventListener('change', () => {
-      syncFilterState(key, wrapper);
+      syncFilterState(key);
       applyFilters();
       refreshButtonBadge(btn, key);
     });
@@ -83,22 +88,27 @@ function buildDropdown(key, label, values) {
 
   btn.addEventListener('click', e => {
     e.stopPropagation();
+    const tray = document.getElementById('filter-panel-tray');
     const wasOpen = panel.classList.contains('open');
     closeAllDropdowns();
     if (!wasOpen) {
       panel.classList.add('open');
       btn.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
+      tray.classList.add('open');
     }
   });
 
   wrapper.appendChild(btn);
-  wrapper.appendChild(panel);
-  return wrapper;
+  // panel goes to tray, not wrapper — returned separately
+  return { wrapper, panel };
 }
 
-function syncFilterState(key, wrapper) {
-  const checked = [...wrapper.querySelectorAll('input[type="checkbox"]:checked')].map(cb => cb.value);
+function syncFilterState(key) {
+  const panel = document.querySelector(`#filter-panel-tray .filter-panel[data-key="${key}"]`);
+  const checked = panel
+    ? [...panel.querySelectorAll('input[type="checkbox"]:checked')].map(cb => cb.value)
+    : [];
   if (checked.length > 0) activeFilters[key] = new Set(checked);
   else delete activeFilters[key];
 }
@@ -140,12 +150,13 @@ function applyFilters() {
 
 function clearAllFilters() {
   activeFilters = {};
-  document.querySelectorAll('#filter-bar input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+  document.querySelectorAll('#filter-panel-tray input[type="checkbox"]').forEach(cb => { cb.checked = false; });
   document.querySelectorAll('#filter-bar .filter-btn').forEach(btn => {
     btn.classList.remove('active');
     const badge = btn.querySelector('.filter-count');
     if (badge) badge.remove();
   });
+  closeAllDropdowns();
   onFilterChange(allProjects);
 }
 
@@ -155,4 +166,6 @@ function closeAllDropdowns() {
     b.classList.remove('open');
     b.setAttribute('aria-expanded', 'false');
   });
+  const tray = document.getElementById('filter-panel-tray');
+  if (tray) tray.classList.remove('open');
 }
