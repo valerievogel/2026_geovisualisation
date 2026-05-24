@@ -2,13 +2,12 @@ let leafletMap;
 let markerList = []; // [{ project, marker }, ...]
 
 function initMap(projects) {
-  leafletMap = L.map('map', { minZoom: 2 }).setView([20, 10], 2);
+  leafletMap = L.map('map', { minZoom: 2, worldCopyJump: true }).setView([20, 10], 2);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 18,
     minZoom: 2,
-    noWrap: true,
   }).addTo(leafletMap);
 
   markerList = projects.map(project => {
