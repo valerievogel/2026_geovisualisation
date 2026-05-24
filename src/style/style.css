@@ -136,6 +136,41 @@ a:hover { text-decoration: underline; }
 .page-content h2 { font-size: 1.4rem; margin: 2rem 0 .75rem; color: var(--primary); }
 .page-content p  { line-height: 1.7; margin-bottom: 1rem; color: #334e5e; }
 
+/* ── Boxed site wrapper ────────────────────────────────── */
+.site-wrapper {
+  width: 90%;
+  max-width: 2400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-shadow: 0 0 60px rgba(0,52,89,.10);
+}
+
+/* ── Content page hero + floating card ────────────────── */
+.page-hero {
+  height: 360px;
+  background:
+    linear-gradient(rgba(0,52,89,.20), rgba(0,52,89,.20)),
+    url('../assets/hero.jpg') center/cover no-repeat;
+  flex-shrink: 0;
+}
+
+.page-card-wrapper {
+  background: var(--white);
+  border-radius: 24px 24px 0 0;
+  margin-top: -64px;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 -8px 40px rgba(0,52,89,.15);
+  flex: 1;
+}
+
+.page-card-wrapper .page-content {
+  margin-top: 0;
+  padding-top: 2.5rem;
+}
+
 /* ── About page images ────────────────────────────────── */
 .about-image {
   margin: 1.5rem 0;
