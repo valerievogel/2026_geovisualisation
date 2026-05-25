@@ -1,27 +1,40 @@
-let leafletMap;
+let glMap;
 let markerList = []; // [{ project, marker }, ...]
 
 function initMap(projects) {
-  leafletMap = L.map('map', { minZoom: 2, worldCopyJump: true }).setView([20, 10], 2);
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom: 18,
+  glMap = new maplibregl.Map({
+    container: 'map',
+    style: 'https://api.maptiler.com/maps/dataviz-v4-light/style.json?key=hJ1lxUKcMo0eAhcUqiOL',
+    center: [10, 20],
+    zoom: 2,
     minZoom: 2,
-  }).addTo(leafletMap);
+  });
 
-  markerList = projects.map(project => {
-    const marker = L.marker([project.latitude, project.longitude]);
+  glMap.on('load', () => {
+    markerList = projects.map(project => {
+      const marker = new maplibregl.Marker()
+        .setLngLat([project.longitude, project.latitude])
+        .addTo(glMap);
 
-    marker.bindTooltip(
-      `<strong>${project.name}</strong><br>${project.organisation}<br><em>${project.sport.join(', ')}</em>`,
-      { className: 's4d-tooltip', direction: 'top', offset: [0, -10] }
-    );
+      const popup = new maplibregl.Popup({
+        offset: 25,
+        closeButton: false,
+        closeOnClick: false,
+        anchor: 'bottom',
+        className: 's4d-tooltip',
+      }).setHTML(
+        `<strong>${project.name}</strong><br>${project.organisation}<br><em>${project.sport.join(', ')}</em>`
+      );
 
-    marker.on('click', () => showProjectCard(project));
+      const el = marker.getElement();
+      el.addEventListener('mouseenter', () => {
+        popup.setLngLat([project.longitude, project.latitude]).addTo(glMap);
+      });
+      el.addEventListener('mouseleave', () => popup.remove());
+      el.addEventListener('click', () => showProjectCard(project));
 
-    marker.addTo(leafletMap);
-    return { project, marker };
+      return { project, marker };
+    });
   });
 
   document.getElementById('close-panel').addEventListener('click', closeSidePanel);
@@ -60,7 +73,7 @@ function buildCardHTML(p) {
 function updatePins(filteredProjects) {
   const visibleIds = new Set(filteredProjects.map(p => p.id));
   markerList.forEach(({ project, marker }) => {
-    marker.setOpacity(visibleIds.has(project.id) ? 1 : 0.15);
+    marker.getElement().style.opacity = visibleIds.has(project.id) ? '1' : '0.15';
   });
 }
 

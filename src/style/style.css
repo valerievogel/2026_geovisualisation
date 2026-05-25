@@ -567,8 +567,8 @@ a.intro-card:hover {
   text-decoration: none;
 }
 
-/* ── Leaflet tooltip override ─────────────────────────── */
-.leaflet-tooltip.s4d-tooltip {
+/* ── MapLibre popup override ──────────────────────────── */
+.maplibregl-popup.s4d-tooltip .maplibregl-popup-content {
   background: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -580,7 +580,7 @@ a.intro-card:hover {
   pointer-events: none;
 }
 
-.leaflet-tooltip.s4d-tooltip::before { border-top-color: #ccc; }
+.maplibregl-popup.s4d-tooltip .maplibregl-popup-tip { border-top-color: #ccc; }
 
 /* ── Accessibility ────────────────────────────────────── */
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
