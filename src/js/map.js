@@ -14,6 +14,12 @@ function initMap(projects) {
     markerList = projects.map(project => {
       const el = document.createElement('div');
       el.className = 'map-pin';
+      el.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36" aria-hidden="true">
+          <path d="M14 1C6.82 1 1 6.82 1 14c0 4.48 2.1 8.47 5.36 11.05L14 35l7.64-9.95C24.9 22.47 27 18.48 27 14 27 6.82 21.18 1 14 1z"
+                fill="#003459" stroke="#ffffff" stroke-width="2"/>
+          <circle cx="14" cy="14" r="5" fill="#ffffff"/>
+        </svg>`;
 
       const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
         .setLngLat([project.longitude, project.latitude])
