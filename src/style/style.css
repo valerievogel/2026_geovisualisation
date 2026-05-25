@@ -158,7 +158,7 @@ a:hover { text-decoration: underline; }
   height: 360px;
   background:
     linear-gradient(rgba(0,52,89,.20), rgba(0,52,89,.20)),
-    url('../assets/hero.jpg') center/cover no-repeat;
+    url('../assets/hero-option4.jpg') center/cover no-repeat;
   flex-shrink: 0;
 }
 
@@ -264,7 +264,7 @@ a:hover { text-decoration: underline; }
 .hero {
   background:
     linear-gradient(rgba(0,52,89,.45), rgba(0,52,89,.45)),
-    url('../assets/hero.jpg') center/cover no-repeat;
+    url('../assets/hero-option4.jpg') center/cover no-repeat;
   background-color: var(--primary);
   min-height: 420px;
   display: flex;
