@@ -4038,3 +4038,735 @@ style.css
 
 .map-pin — navy #003459 teardrop, white 2.5px border, soft drop shadow, pointer: cursor
 .map-pin:hover — scales up 1.2× with a deeper shadow (the rotate(-45deg) is preserved in the hover transform so the shape doesn't snap back)
+
+
+c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+what ist the best way to create a svg map pin that can be used for the website ?
+Let me take a quick look at your project to give you the most relevant advice.
+
+Globpattern: "**/*.{svg,html,css,js}"
+Found 10 files
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\assets\map_pin.svg
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Grep "map-pin" (in src/style/style.css)
+33 lines of output
+Now I have a full picture. Your project uses MapLibre GL with a CSS-only div.map-pin (a rotated circle that fakes a teardrop shape). Here's a breakdown of the best approaches:
+
+Current approach (CSS div)
+Your style.css:587-602 already does this with:
+
+
+border-radius: 50% 50% 50% 0;
+transform: rotate(-45deg);
+✅ Simple & fast — but limited to basic shapes.
+
+Best ways to create a real SVG pin
+Option 1 — Inline SVG inside the marker element (recommended for MapLibre)
+Replace the CSS trick with an actual SVG inside the div in map.js. This gives you full control over shape, colors, icons inside the pin, etc.
+
+
+// In initMap(), where you create the marker element:
+const el = document.createElement('div');
+el.className = 'map-pin';
+el.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36">
+    <path d="M14 0C6.268 0 0 6.268 0 14c0 9.625 14 22 14 22S28 23.625 28 14C28 6.268 21.732 0 14 0z"
+          fill="#003459" stroke="#fff" stroke-width="2"/>
+    <circle cx="14" cy="14" r="5" fill="#fff"/>
+  </svg>`;
+Then strip the old CSS pin styles and just set width/height on .map-pin.
+
+Option 2 — External .svg file as CSS background
+
+.map-pin {
+  width: 28px;
+  height: 36px;
+  background-image: url('../assets/map_pin.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+Create the SVG file in one of these tools:
+
+Figma (free, browser-based) — draw a teardrop, export as SVG
+Inkscape (free, desktop) — great for precision paths
+Sketch / Illustrator — if you have a license
+Option 3 — MapLibre image layer (for 1000s of pins)
+If you ever need to render many pins at once without DOM elements, use map.addImage() + a symbol layer. But for your current use case, Option 1 is the right fit.
+
+Recommended SVG pin path
+Here's a clean, hand-crafted SVG pin you can drop straight into assets/map_pin.svg:
+
+
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36">
+  <!-- Teardrop body -->
+  <path d="M14 1C6.82 1 1 6.82 1 14c0 4.48 2.1 8.47 5.36 11.05L14 35l7.64-9.95C24.9 22.47 27 18.48 27 14 27 6.82 21.18 1 14 1z"
+        fill="#003459" stroke="#ffffff" stroke-width="2"/>
+  <!-- Inner dot -->
+  <circle cx="14" cy="14" r="5" fill="#ffffff"/>
+</svg>
+Key attributes to tweak:
+
+Attribute	What it controls
+fill="#003459"	Pin color (matches your brand)
+stroke="#ffffff"	White border
+r="5" on the circle	Size of inner dot
+width/height	DOM size (28×36 is a natural pin ratio)
+Which approach to use?
+For your project, Option 1 (inline SVG) gives you the best result — real vector shape, hover animations via CSS, no extra HTTP request, and works perfectly with the MapLibre custom element approach you already use in map.js:15-18.
+
+Want me to implement it in your code?
+
+yes
+Let me read the current CSS around the map pin to make a clean edit:
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 585-609)
+Now I'll make both changes — update the CSS and the JS:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 1 line
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 6 lines
+Done! Here's a summary of what changed:
+
+map.js:15-21 — The marker div now contains an inline SVG teardrop pin instead of relying on the CSS shape trick. The aria-hidden="true" keeps it clean for screen readers.
+
+style.css:587-603 — Replaced the border-radius + rotate(-45deg) hack with proper sizing (28×36px) and:
+
+filter: drop-shadow(...) — shadows follow the SVG shape correctly (unlike box-shadow which would apply to the invisible square bounding box)
+transform-origin: bottom center — hover scale grows upward from the pin tip, which looks natural on a map
+The pin keeps your exact brand color (#003459) and white inner dot. To change the color later, just update fill="#003459" in map.js.
+
+for the filters: make the following adaptations described below:
+also don't forget to change the attributes of the 'invented' information of the projects so that it matches actual attribtues
+make sure that every attribute is at least once in the examples. you can add some 'invented' examples, if needed - but logical ones
+and also make the category 'Organisation Type' visible, not only 'Org. Type', write it entierly
+
+changes to apply:
+
+for regions:
+delet attribute 'Middle East'
+add attributes: "North America", "Oceania"
+
+in topics:
+replace: "refugee context" with "Forced displacement settings"
+add "Construction of Infrastructure"
+
+in target:
+add "LGBTQI+", "People with disabilities", "Indigenous communities"
+
+in 'Organisation Type', add "Social enterprise", "Sports structure or club", "Educational structure", "Government body", "Other"
+
+in 'sport': add "Combat Sport"
+
+in 'Skills': add "Construction work", "No prerequisite skills"
+
+add the filter selection 'Duration of the stay'
+Add "1-3 weeks", "1-3 months", "4-6 months", "1 year", "Flexible"
+
+also make sure that or everything is capitalised, or just always the first word of the category - but make it all the same
+
+don't hesitate to ask if there are questions
+Let me first look at the filters and data files to understand the full picture:
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\filters.js
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\app.js
+Globpattern: "**/*.json"
+Found 1 file
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\data\projects.json
+Let me look at a couple more things before writing:
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 551-585)
+Good. Now I have everything. I'll make all the changes in one go — updating filters.js, projects.json, and a small CSS tweak for the wider "Organisation type" label.
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\filters.js
+Added 1 line
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\filters.js
+Modified
+Now the full updated projects.json:
+
+Write c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\data\projects.json
+288 lines
+All done. Here's a full summary of every change made:
+
+filters.js — 3 changes
+What	Before	After
+Label capitalization	Target Group, Skills Required	Target group, Skills required
+Organisation type label	Org. Type	Organisation type
+New filter added	—	Duration of stay with fixed order: 1-3 weeks → 1-3 months → 4-6 months → 1 year → Flexible
+The duration filter uses preset values (not dynamically sorted) so the order stays chronological, not alphabetical.
+
+projects.json — every project + 4 new ones
+All 11 existing projects: added duration_of_stay field.
+
+Specific fixes:
+
+germany-003 + jordan-011: "Refugee context" → "Forced displacement settings"
+jordan-011: region "The Middle East" → "Asia", org type "UN Agency" → "Other" (IOC is not a UN agency)
+tafisa-009: "Environment and Sustainability" → "Environment and sustainability"
+4 new projects covering every new attribute:
+
+Project	New attributes covered
+🇺🇸 Youth Combat Sports Initiative – Chicago	North America, Social enterprise, LGBTQI+, Combat Sport, No prerequisite skills
+🇦🇺 Strong Body Strong Spirit – Darwin	Oceania, Sports structure or club, Indigenous communities
+🇧🇪 Special Olympics – Brussels	Educational structure, People with disabilities, No prerequisite skills
+🇷🇼 Sport Infrastructure Programme – Rwanda	Government body, Construction of Infrastructure, Construction work
+c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+if you click on 'Sport for Development Hub', I want you to return the link on the landing page
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+Grep "Sport for Development Hub" (glob: src/**/*.html)
+79 lines of output
+The <span class="brand"> appears on all 5 pages. I'll wrap it in an <a href="index.html"> across all of them at once — and check if the CSS needs a cursor tweak too.
+
+Grep "\.brand" (in src/style/style.css)
+9 lines of output
+Grep "\.brand" (in src/style/style.css)
+9 lines of output
+Good. Now I'll do all 5 files and add cursor: pointer + remove the underline to the CSS:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+Modified
+Now the other 4 pages in parallel:
+
+Grep "<span class="brand">Sport for Development Hub</span>" (in src/index.html)
+1 line of output
+Grep "<span class="brand">Sport for Development Hub</span>" (in src/map.html)
+1 line of output
+Grep "<span class="brand">Sport for Development Hub</span>" (in src/volunteer.html)
+1 line of output
+Grep "<span class="brand">Sport for Development Hub</span>" (in src/contact.html)
+1 line of output
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\index.html
+Edit failed
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Edit failed
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\volunteer.html
+Edit failed
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\contact.html
+Edit failed
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\index.html
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\volunteer.html
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\contact.html
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\index.html
+Modified
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Modified
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\volunteer.html
+Modified
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\contact.html
+Modified
+Now fix the CSS so the brand link looks identical to before — no underline, same white color:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 2 lines
+Done. Changes made across all 5 pages + the CSS:
+
+<span class="brand"> → <a href="index.html" class="brand"> in index.html, about.html, map.html, volunteer.html, contact.html
+style.css: added text-decoration: none and cursor: pointer to .site-nav .brand so the link looks exactly the same as the old <span> — no underline, no colour change.
+
+image.png
+2432×1483
+c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\index.html
+when one hovers above the project with the mouse, the text block appears right on top of the pin
+
+I want there to be a line, that goes from the head of the pin, to the textbox. It shall go up straight and then to the right, if in the upper quarter of the world map.
+Down left, on the left quarter of the world maps. Down right on the right bottom quarter of the map. And up, left on the top left quarter of the map.
+the idea is for the textbox not to hide what's underneath, if for example there is another pin in that area.
+
+Ask questions if needed. Say 'HELL NO' as usual if something is not logical.
+Let me look at the map.html structure and the current map CSS before designing this:
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Grep "#map|\.map-|maplibre" (in src/style/style.css)
+43 lines of output
+Good. I have a clear picture. Here's the plan before coding — so you can validate the logic:
+
+The L-shaped leader line geometry (4 quadrants, split at map center):
+
+
+Top-left quadrant:   pin head → UP → LEFT  → [tooltip]
+Top-right quadrant:  pin head → UP → RIGHT → [tooltip]
+Bottom-left:         pin head → DOWN → LEFT  → [tooltip]
+Bottom-right:        pin head → DOWN → RIGHT → [tooltip]
+The line originates from the centre of the round head circle of the pin (not the tip). An SVG <polyline> overlay (full-size, pointer-events:none) sits on top of the map, and the tooltip <div> is vertically centered on the horizontal segment.
+
+The old MapLibre Popup is removed entirely — replaced with fully custom DOM elements.
+
+Write c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+181 lines
+Now add the tooltip CSS and update #map to be explicitly position: relative:
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 461-472)
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+Now add the tooltip styles after the existing MapLibre popup overrides:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 19 lines
+Done. Here's exactly what was built:
+
+map.js
+
+Removed all maplibregl.Popup usage entirely
+Added _initTooltipOverlay() — creates one shared SVG (full-map overlay) + one tooltip <div>, both appended to #map on load
+_showTooltip(pinEl, html):
+Gets the pin's screen rect relative to the map container
+Calculates the pin head position (cx=14, cy=14 in the SVG = centre of the circle)
+Compares against map centre → determines quadrant → sets goUp + goRight
+Draws polyline: head → vertical elbow → horizontal end (the L-shape)
+Renders the tooltip hidden, measures it, then positions it vertically centred on the horizontal segment
+Clamps it to stay within the map bounds
+glMap.on('movestart', _hideTooltip) — tooltip hides automatically on pan/zoom
+style.css
+
+Added .map-leader-tooltip — matches the existing popup visual style (same grey background, border, shadow, font)
+Added position: relative to #map explicitly so the absolute-positioned SVG and tooltip are anchored correctly
+
+image.png
+2390×1449
+make sure the text fits into the text box
+there are several texts that overlap and go onto the map
+The issue is white-space: nowrap in the tooltip CSS — it forces everything onto one line regardless of max-width, so long project names overflow the box. Simple fix:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 1 line
+Two changes:
+
+Replaced white-space: nowrap → white-space: normal so text wraps at the box edge
+Replaced max-width: 240px → width: 180px — a fixed width is better here because it makes the tooltip size predictable, which means the offsetWidth measurement in JS (used to position the box left/right of the line) is reliable. With max-content sizing, the box would jump around depending on text length, which could cause the line endpoint to not align with the box edge. word-break: break-word handles any edge cases with very long unbroken strings.
+In 'project details': put the 'organisation type' down to the other categories and attributes
+just under the sport
+Just a JS change in buildCardHTML — pull organisation_type out of the text line and add it as a tag row right after sport:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 1 line
+Now let me check what the existing tag styles look like so I can give org-type a fitting style:
+
+Grep "\.tag" (in src/style/style.css)
+21 lines of output
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 1 line
+Done. Here's what changed:
+
+map.js — buildCardHTML
+
+p.organisation_type removed from the organisation text line — it now just shows the organisation name
+Added row([p.organisation_type], 'org-type') as its own tag row, sitting between sport and topic. Wrapped in [...] because organisation_type is a single string, not an array
+style.css
+
+Added .tag.org-type — a slightly blue-grey pill with italic text, visually distinct from the green sport tags and the plain topic/target group tags, so the three types of tag are easy to tell apart at a glance
+make the other categories also in navy blue, instead of this creamy red
+Grep "--bg|--border|--primary|--accent|--muted" (in src/style/style.css)
+31 lines of output
+--bg is #FFF2F1 — that warm pinkish cream. The plain .tag uses it as background. I'll swap it for a light navy tint to match the org-type style:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+While I'm at it — the .tag.org-type now has the same background as the base .tag, so I should tweak it slightly to stay visually distinct (italic already helps, but a touch more border contrast):
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+Done. The three tag levels now read as a clear hierarchy:
+
+Tag type	Background	Use
+Sport (.accent)	#e8f3ec — soft green	sport
+Organisation type (.org-type)	#dce6f0 — medium navy tint + italic	org type
+Topic / Target group (base .tag)	#eef2f7 — light navy tint	topics & groups
+All three stay in the navy-blue family and the creamy #FFF2F1 is gone from the tags entirely.
+
+do the same to the filter fields on top
+Grep "filter-btn|filter-bar|filter-dropdown|filter-option|filter-panel" (in src/style/style.css)
+68 lines of output
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 369-386)
+Two spots use var(--bg): the button background and the option hover. Both get the same navy tint:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+Done — filter pills now use #eef2f7 background with #b8c9d9 border, identical to the base tag style in the project card. Consistent across both places.
+
+
+image.png
+2493×1503
+fix the bug
+if the 'project details' are opened, the Australian project isn't showing properly
+there is no line
+Looking at the screenshot: the Darwin pin is very close to the right edge of the map (the side panel ate that space). The line goes right into the clipped overflow zone, so it disappears — but the tooltip box was clamped back left, leaving an orphaned box with no line.
+
+The fix: measure the tooltip first, then decide direction — flip if going the quadrant-default way would overflow the map edge. This replaces the clamp-after-the-fact approach with a smarter pick-then-commit logic.
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 1 line
+The logic now works in two passes:
+
+Measure first — tooltip is rendered invisibly so its real pixel size (tw, th) is known before any geometry is committed
+Quadrant as default, flip if needed — e.g. for Darwin: quadrant says go right, but hx + 80 + 180 > mapRect.width, so it flips to go left → line goes from pin head, down 40 px, then left 80 px → tooltip appears to the left of the pin, fully inside the map, line fully visible
+The same flip logic applies to all four edges, so any pin near any border (including when the side panel or filter tray is open and shrinks the map) will always find a valid direction.
+
+
+c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+what ist the best way to create a svg map pin that can be used for the website ?
+Let me take a quick look at your project to give you the most relevant advice.
+
+Globpattern: "**/*.{svg,html,css,js}"
+Found 10 files
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\assets\map_pin.svg
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Grep "map-pin" (in src/style/style.css)
+33 lines of output
+Now I have a full picture. Your project uses MapLibre GL with a CSS-only div.map-pin (a rotated circle that fakes a teardrop shape). Here's a breakdown of the best approaches:
+
+Current approach (CSS div)
+Your style.css:587-602 already does this with:
+
+
+border-radius: 50% 50% 50% 0;
+transform: rotate(-45deg);
+✅ Simple & fast — but limited to basic shapes.
+
+Best ways to create a real SVG pin
+Option 1 — Inline SVG inside the marker element (recommended for MapLibre)
+Replace the CSS trick with an actual SVG inside the div in map.js. This gives you full control over shape, colors, icons inside the pin, etc.
+
+
+// In initMap(), where you create the marker element:
+const el = document.createElement('div');
+el.className = 'map-pin';
+el.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36">
+    <path d="M14 0C6.268 0 0 6.268 0 14c0 9.625 14 22 14 22S28 23.625 28 14C28 6.268 21.732 0 14 0z"
+          fill="#003459" stroke="#fff" stroke-width="2"/>
+    <circle cx="14" cy="14" r="5" fill="#fff"/>
+  </svg>`;
+Then strip the old CSS pin styles and just set width/height on .map-pin.
+
+Option 2 — External .svg file as CSS background
+
+.map-pin {
+  width: 28px;
+  height: 36px;
+  background-image: url('../assets/map_pin.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+Create the SVG file in one of these tools:
+
+Figma (free, browser-based) — draw a teardrop, export as SVG
+Inkscape (free, desktop) — great for precision paths
+Sketch / Illustrator — if you have a license
+Option 3 — MapLibre image layer (for 1000s of pins)
+If you ever need to render many pins at once without DOM elements, use map.addImage() + a symbol layer. But for your current use case, Option 1 is the right fit.
+
+Recommended SVG pin path
+Here's a clean, hand-crafted SVG pin you can drop straight into assets/map_pin.svg:
+
+
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36">
+  <!-- Teardrop body -->
+  <path d="M14 1C6.82 1 1 6.82 1 14c0 4.48 2.1 8.47 5.36 11.05L14 35l7.64-9.95C24.9 22.47 27 18.48 27 14 27 6.82 21.18 1 14 1z"
+        fill="#003459" stroke="#ffffff" stroke-width="2"/>
+  <!-- Inner dot -->
+  <circle cx="14" cy="14" r="5" fill="#ffffff"/>
+</svg>
+Key attributes to tweak:
+
+Attribute	What it controls
+fill="#003459"	Pin color (matches your brand)
+stroke="#ffffff"	White border
+r="5" on the circle	Size of inner dot
+width/height	DOM size (28×36 is a natural pin ratio)
+Which approach to use?
+For your project, Option 1 (inline SVG) gives you the best result — real vector shape, hover animations via CSS, no extra HTTP request, and works perfectly with the MapLibre custom element approach you already use in map.js:15-18.
+
+Want me to implement it in your code?
+
+yes
+Let me read the current CSS around the map pin to make a clean edit:
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 585-609)
+Now I'll make both changes — update the CSS and the JS:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 1 line
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 6 lines
+Done! Here's a summary of what changed:
+
+map.js:15-21 — The marker div now contains an inline SVG teardrop pin instead of relying on the CSS shape trick. The aria-hidden="true" keeps it clean for screen readers.
+
+style.css:587-603 — Replaced the border-radius + rotate(-45deg) hack with proper sizing (28×36px) and:
+
+filter: drop-shadow(...) — shadows follow the SVG shape correctly (unlike box-shadow which would apply to the invisible square bounding box)
+transform-origin: bottom center — hover scale grows upward from the pin tip, which looks natural on a map
+The pin keeps your exact brand color (#003459) and white inner dot. To change the color later, just update fill="#003459" in map.js.
+
+for the filters: make the following adaptations described below:
+also don't forget to change the attributes of the 'invented' information of the projects so that it matches actual attribtues
+make sure that every attribute is at least once in the examples. you can add some 'invented' examples, if needed - but logical ones
+and also make the category 'Organisation Type' visible, not only 'Org. Type', write it entierly
+
+changes to apply:
+
+for regions:
+delet attribute 'Middle East'
+add attributes: "North America", "Oceania"
+
+in topics:
+replace: "refugee context" with "Forced displacement settings"
+add "Construction of Infrastructure"
+
+in target:
+add "LGBTQI+", "People with disabilities", "Indigenous communities"
+
+in 'Organisation Type', add "Social enterprise", "Sports structure or club", "Educational structure", "Government body", "Other"
+
+in 'sport': add "Combat Sport"
+
+in 'Skills': add "Construction work", "No prerequisite skills"
+
+add the filter selection 'Duration of the stay'
+Add "1-3 weeks", "1-3 months", "4-6 months", "1 year", "Flexible"
+
+also make sure that or everything is capitalised, or just always the first word of the category - but make it all the same
+
+don't hesitate to ask if there are questions
+Let me first look at the filters and data files to understand the full picture:
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\filters.js, c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\app.js
+Globpattern: "**/*.json"
+Found 1 file
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\data\projects.json
+Let me look at a couple more things before writing:
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 551-585)
+Good. Now I have everything. I'll make all the changes in one go — updating filters.js, projects.json, and a small CSS tweak for the wider "Organisation type" label.
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\filters.js
+Added 1 line
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\filters.js
+Modified
+Now the full updated projects.json:
+
+Write c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\data\projects.json
+288 lines
+All done. Here's a full summary of every change made:
+
+filters.js — 3 changes
+What	Before	After
+Label capitalization	Target Group, Skills Required	Target group, Skills required
+Organisation type label	Org. Type	Organisation type
+New filter added	—	Duration of stay with fixed order: 1-3 weeks → 1-3 months → 4-6 months → 1 year → Flexible
+The duration filter uses preset values (not dynamically sorted) so the order stays chronological, not alphabetical.
+
+projects.json — every project + 4 new ones
+All 11 existing projects: added duration_of_stay field.
+
+Specific fixes:
+
+germany-003 + jordan-011: "Refugee context" → "Forced displacement settings"
+jordan-011: region "The Middle East" → "Asia", org type "UN Agency" → "Other" (IOC is not a UN agency)
+tafisa-009: "Environment and Sustainability" → "Environment and sustainability"
+4 new projects covering every new attribute:
+
+Project	New attributes covered
+🇺🇸 Youth Combat Sports Initiative – Chicago	North America, Social enterprise, LGBTQI+, Combat Sport, No prerequisite skills
+🇦🇺 Strong Body Strong Spirit – Darwin	Oceania, Sports structure or club, Indigenous communities
+🇧🇪 Special Olympics – Brussels	Educational structure, People with disabilities, No prerequisite skills
+🇷🇼 Sport Infrastructure Programme – Rwanda	Government body, Construction of Infrastructure, Construction work
+c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+if you click on 'Sport for Development Hub', I want you to return the link on the landing page
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+Grep "Sport for Development Hub" (glob: src/**/*.html)
+79 lines of output
+The <span class="brand"> appears on all 5 pages. I'll wrap it in an <a href="index.html"> across all of them at once — and check if the CSS needs a cursor tweak too.
+
+Grep "\.brand" (in src/style/style.css)
+9 lines of output
+Grep "\.brand" (in src/style/style.css)
+9 lines of output
+Good. Now I'll do all 5 files and add cursor: pointer + remove the underline to the CSS:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+Modified
+Now the other 4 pages in parallel:
+
+Grep "<span class="brand">Sport for Development Hub</span>" (in src/index.html)
+1 line of output
+Grep "<span class="brand">Sport for Development Hub</span>" (in src/map.html)
+1 line of output
+Grep "<span class="brand">Sport for Development Hub</span>" (in src/volunteer.html)
+1 line of output
+Grep "<span class="brand">Sport for Development Hub</span>" (in src/contact.html)
+1 line of output
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\index.html
+Edit failed
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Edit failed
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\volunteer.html
+Edit failed
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\contact.html
+Edit failed
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\index.html
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\volunteer.html
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\contact.html
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\index.html
+Modified
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Modified
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\volunteer.html
+Modified
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\contact.html
+Modified
+Now fix the CSS so the brand link looks identical to before — no underline, same white color:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 2 lines
+Done. Changes made across all 5 pages + the CSS:
+
+<span class="brand"> → <a href="index.html" class="brand"> in index.html, about.html, map.html, volunteer.html, contact.html
+style.css: added text-decoration: none and cursor: pointer to .site-nav .brand so the link looks exactly the same as the old <span> — no underline, no colour change.
+
+image.jpeg
+1999×1219
+c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\index.html
+when one hovers above the project with the mouse, the text block appears right on top of the pin
+
+I want there to be a line, that goes from the head of the pin, to the textbox. It shall go up straight and then to the right, if in the upper quarter of the world map.
+Down left, on the left quarter of the world maps. Down right on the right bottom quarter of the map. And up, left on the top left quarter of the map.
+the idea is for the textbox not to hide what's underneath, if for example there is another pin in that area.
+
+Ask questions if needed. Say 'HELL NO' as usual if something is not logical.
+Let me look at the map.html structure and the current map CSS before designing this:
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Grep "#map|\.map-|maplibre" (in src/style/style.css)
+43 lines of output
+Good. I have a clear picture. Here's the plan before coding — so you can validate the logic:
+
+The L-shaped leader line geometry (4 quadrants, split at map center):
+
+
+Top-left quadrant:   pin head → UP → LEFT  → [tooltip]
+Top-right quadrant:  pin head → UP → RIGHT → [tooltip]
+Bottom-left:         pin head → DOWN → LEFT  → [tooltip]
+Bottom-right:        pin head → DOWN → RIGHT → [tooltip]
+The line originates from the centre of the round head circle of the pin (not the tip). An SVG <polyline> overlay (full-size, pointer-events:none) sits on top of the map, and the tooltip <div> is vertically centered on the horizontal segment.
+
+The old MapLibre Popup is removed entirely — replaced with fully custom DOM elements.
+
+Write c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+181 lines
+Now add the tooltip CSS and update #map to be explicitly position: relative:
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 461-472)
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+Now add the tooltip styles after the existing MapLibre popup overrides:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 19 lines
+Done. Here's exactly what was built:
+
+map.js
+
+Removed all maplibregl.Popup usage entirely
+Added _initTooltipOverlay() — creates one shared SVG (full-map overlay) + one tooltip <div>, both appended to #map on load
+_showTooltip(pinEl, html):
+Gets the pin's screen rect relative to the map container
+Calculates the pin head position (cx=14, cy=14 in the SVG = centre of the circle)
+Compares against map centre → determines quadrant → sets goUp + goRight
+Draws polyline: head → vertical elbow → horizontal end (the L-shape)
+Renders the tooltip hidden, measures it, then positions it vertically centred on the horizontal segment
+Clamps it to stay within the map bounds
+glMap.on('movestart', _hideTooltip) — tooltip hides automatically on pan/zoom
+style.css
+
+Added .map-leader-tooltip — matches the existing popup visual style (same grey background, border, shadow, font)
+Added position: relative to #map explicitly so the absolute-positioned SVG and tooltip are anchored correctly
+
+image.jpeg
+1999×1212
+make sure the text fits into the text box
+there are several texts that overlap and go onto the map
+The issue is white-space: nowrap in the tooltip CSS — it forces everything onto one line regardless of max-width, so long project names overflow the box. Simple fix:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 1 line
+Two changes:
+
+Replaced white-space: nowrap → white-space: normal so text wraps at the box edge
+Replaced max-width: 240px → width: 180px — a fixed width is better here because it makes the tooltip size predictable, which means the offsetWidth measurement in JS (used to position the box left/right of the line) is reliable. With max-content sizing, the box would jump around depending on text length, which could cause the line endpoint to not align with the box edge. word-break: break-word handles any edge cases with very long unbroken strings.
+In 'project details': put the 'organisation type' down to the other categories and attributes
+just under the sport
+Just a JS change in buildCardHTML — pull organisation_type out of the text line and add it as a tag row right after sport:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 1 line
+Now let me check what the existing tag styles look like so I can give org-type a fitting style:
+
+Grep "\.tag" (in src/style/style.css)
+21 lines of output
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 1 line
+Done. Here's what changed:
+
+map.js — buildCardHTML
+
+p.organisation_type removed from the organisation text line — it now just shows the organisation name
+Added row([p.organisation_type], 'org-type') as its own tag row, sitting between sport and topic. Wrapped in [...] because organisation_type is a single string, not an array
+style.css
+
+Added .tag.org-type — a slightly blue-grey pill with italic text, visually distinct from the green sport tags and the plain topic/target group tags, so the three types of tag are easy to tell apart at a glance
+make the other categories also in navy blue, instead of this creamy red
+Grep "--bg|--border|--primary|--accent|--muted" (in src/style/style.css)
+31 lines of output
+--bg is #FFF2F1 — that warm pinkish cream. The plain .tag uses it as background. I'll swap it for a light navy tint to match the org-type style:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+While I'm at it — the .tag.org-type now has the same background as the base .tag, so I should tweak it slightly to stay visually distinct (italic already helps, but a touch more border contrast):
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+Done. The three tag levels now read as a clear hierarchy:
+
+Tag type	Background	Use
+Sport (.accent)	#e8f3ec — soft green	sport
+Organisation type (.org-type)	#dce6f0 — medium navy tint + italic	org type
+Topic / Target group (base .tag)	#eef2f7 — light navy tint	topics & groups
+All three stay in the navy-blue family and the creamy #FFF2F1 is gone from the tags entirely.
+
+do the same to the filter fields on top
+Grep "filter-btn|filter-bar|filter-dropdown|filter-option|filter-panel" (in src/style/style.css)
+68 lines of output
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 369-386)
+Two spots use var(--bg): the button background and the option hover. Both get the same navy tint:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+Done — filter pills now use #eef2f7 background with #b8c9d9 border, identical to the base tag style in the project card. Consistent across both places.
+
+
+image.jpeg
+1999×1205
+fix the bug
+if the 'project details' are opened, the Australian project isn't showing properly
+there is no line
+Looking at the screenshot: the Darwin pin is very close to the right edge of the map (the side panel ate that space). The line goes right into the clipped overflow zone, so it disappears — but the tooltip box was clamped back left, leaving an orphaned box with no line.
+
+The fix: measure the tooltip first, then decide direction — flip if going the quadrant-default way would overflow the map edge. This replaces the clamp-after-the-fact approach with a smarter pick-then-commit logic.
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 1 line
+The logic now works in two passes:
+
+Measure first — tooltip is rendered invisibly so its real pixel size (tw, th) is known before any geometry is committed
+Quadrant as default, flip if needed — e.g. for Darwin: quadrant says go right, but hx + 80 + 180 > mapRect.width, so it flips to go left → line goes from pin head, down 40 px, then left 80 px → tooltip appears to the left of the pin, fully inside the map, line fully visible
+The same flip logic applies to all four edges, so any pin near any border (including when the side panel or filter tray is open and shrinks the map) will always find a valid direction.
+
