@@ -72,6 +72,8 @@ a:hover { text-decoration: underline; }
   color: var(--white);
   white-space: nowrap;
   margin-right: auto;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .nav-links { display: flex; align-items: center; gap: 1.5rem; }
@@ -368,9 +370,9 @@ a.intro-card:hover {
   align-items: center;
   gap: .4rem;
   padding: .35rem .75rem;
-  border: 1px solid var(--border);
+  border: 1px solid #b8c9d9;
   border-radius: 20px;
-  background: var(--bg);
+  background: #eef2f7;
   color: var(--text);
   font-family: 'Inter', sans-serif;
   font-size: .82rem;
@@ -429,7 +431,7 @@ a.intro-card:hover {
   transition: background var(--transition);
 }
 
-.filter-option:hover { background: var(--bg); }
+.filter-option:hover { background: #eef2f7; }
 
 .filter-option input[type="checkbox"] {
   accent-color: var(--primary);
@@ -462,7 +464,7 @@ a.intro-card:hover {
   overflow: hidden;
 }
 
-#map { flex: 1; z-index: 1; }
+#map { flex: 1; z-index: 1; position: relative; }
 
 /* Side panel (desktop) */
 #side-panel {
@@ -532,15 +534,16 @@ a.intro-card:hover {
 
 .tag {
   display: inline-block;
-  background: var(--bg);
+  background: #eef2f7;
   color: var(--primary);
-  border: 1px solid var(--border);
+  border: 1px solid #b8c9d9;
   border-radius: 12px;
   padding: .2rem .65rem;
   font-size: .78rem;
 }
 
-.tag.accent { background: #e8f3ec; border-color: var(--accent); }
+.tag.accent   { background: #e8f3ec; border-color: var(--accent); }
+.tag.org-type { background: #dce6f0; border-color: #7fa0bc; color: var(--primary); font-style: italic; }
 
 .project-card .proj-description {
   font-size: .9rem;
@@ -582,6 +585,26 @@ a.intro-card:hover {
 }
 
 .maplibregl-popup.s4d-tooltip .maplibregl-popup-tip { border-top-color: #ccc; }
+
+/* ── Leader-line tooltip ──────────────────────────────── */
+.map-leader-tooltip {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  z-index: 100;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+  padding: .45rem .7rem;
+  font-family: 'Inter', sans-serif;
+  font-size: .82rem;
+  line-height: 1.45;
+  color: var(--text);
+  width: 180px;
+  white-space: normal;
+  word-break: break-word;
+}
 
 /* ── Map markers ──────────────────────────────────────── */
 .map-pin {

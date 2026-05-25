@@ -2,11 +2,12 @@ const FILTER_KEYS = [
   { key: 'region',            label: 'Region' },
   { key: 'country',           label: 'Country' },
   { key: 'topic',             label: 'Topic' },
-  { key: 'target_group',      label: 'Target Group' },
+  { key: 'target_group',      label: 'Target group' },
   { key: 'sport',             label: 'Sport' },
-  { key: 'skills_required',   label: 'Skills Required' },
+  { key: 'skills_required',   label: 'Skills required' },
+  { key: 'duration_of_stay',  label: 'Duration of stay', values: ['1-3 weeks', '1-3 months', '4-6 months', '1 year', 'Flexible'] },
   { key: 'language',          label: 'Language' },
-  { key: 'organisation_type', label: 'Org. Type' },
+  { key: 'organisation_type', label: 'Organisation type' },
   { key: 'organisation',      label: 'Organisation' },
 ];
 
@@ -21,8 +22,8 @@ function initFilters(projects, callback) {
   const clearBtn = document.getElementById('clear-filters');
   const tray     = document.getElementById('filter-panel-tray');
 
-  FILTER_KEYS.forEach(({ key, label }) => {
-    const values = collectValues(projects, key);
+  FILTER_KEYS.forEach(({ key, label, values: presetValues }) => {
+    const values = presetValues || collectValues(projects, key);
     if (values.length === 0) return;
     const { wrapper, panel } = buildDropdown(key, label, values);
     document.getElementById('filter-bar').insertBefore(wrapper, clearBtn);
