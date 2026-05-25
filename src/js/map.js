@@ -5,14 +5,17 @@ function initMap(projects) {
   glMap = new maplibregl.Map({
     container: 'map',
     style: 'https://api.maptiler.com/maps/dataviz-v4-light/style.json?key=hJ1lxUKcMo0eAhcUqiOL',
-    center: [10, 20],
-    zoom: 2,
-    minZoom: 2,
+    center: [15, 15],
+    zoom: 1.5,
+    minZoom: 1,
   });
 
   glMap.on('load', () => {
     markerList = projects.map(project => {
-      const marker = new maplibregl.Marker()
+      const el = document.createElement('div');
+      el.className = 'map-pin';
+
+      const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
         .setLngLat([project.longitude, project.latitude])
         .addTo(glMap);
 
@@ -26,7 +29,6 @@ function initMap(projects) {
         `<strong>${project.name}</strong><br>${project.organisation}<br><em>${project.sport.join(', ')}</em>`
       );
 
-      const el = marker.getElement();
       el.addEventListener('mouseenter', () => {
         popup.setLngLat([project.longitude, project.latitude]).addTo(glMap);
       });
@@ -54,15 +56,18 @@ function showProjectCard(project) {
 }
 
 function buildCardHTML(p) {
-  const sports  = p.sport.map(s => `<span class="tag accent">${s}</span>`).join('');
-  const topics  = p.topic.map(t => `<span class="tag">${t}</span>`).join('');
-  const targets = p.target_group.map(g => `<span class="tag">${g}</span>`).join('');
+  const row = (tags, cls) =>
+    tags.length ? `<div class="proj-meta-row">${tags.map(t => `<span class="tag ${cls}">${t}</span>`).join('')}</div>` : '';
 
   return `
     <p class="proj-name">${p.name}</p>
     <p class="proj-org">${p.organisation} &mdash; ${p.organisation_type}</p>
     <p class="proj-org">${p.city}, ${p.country}</p>
-    <div class="proj-meta">${sports}${topics}${targets}</div>
+    <div class="proj-meta">
+      ${row(p.sport,         'accent')}
+      ${row(p.topic,         '')}
+      ${row(p.target_group,  '')}
+    </div>
     <p class="proj-description">${p.description}</p>
     <a href="${p.website_url}" target="_blank" rel="noopener noreferrer" class="proj-link">
       Visit organisation website &#8594;
@@ -73,7 +78,7 @@ function buildCardHTML(p) {
 function updatePins(filteredProjects) {
   const visibleIds = new Set(filteredProjects.map(p => p.id));
   markerList.forEach(({ project, marker }) => {
-    marker.getElement().style.opacity = visibleIds.has(project.id) ? '1' : '0.15';
+    marker.setOpacity(visibleIds.has(project.id) ? '1' : '0.15');
   });
 }
 

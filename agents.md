@@ -3729,3 +3729,312 @@ this one almost can't be seen
 Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
 Modified
 Done — back to the full #93C0A4 accent green on hover. Clear and visible. And for the cards, the light #e8f3ec tint stays as is — so you have a nice gradient of intensity: strong on the buttons, subtle on the cards.
+
+# Exchanges with agent - 25.05.2026
+
+c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+replace the background of the 'project map' with this map background:
+https://api.maptiler.com/maps/dataviz-v4-light/style.json?key=hJ1lxUKcMo0eAhcUqiOL
+
+Say 'HELL NO' as usual, if there is an issue.
+Agent:Find map background config
+IN
+Search the project at c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet for any map configuration, specifically looking for:
+1. Map style URLs or MapTiler references
+2. Any file that initializes a map (Mapbox, MapLibre, MapTiler, Leaflet, etc.)
+3. Look for "project map" or a section labeled as such
+4. Look for style.json, mapStyle, map background, or similar config
+
+Search through JS, TS, HTML, CSS, and config files. Return the file paths and relevant line numbers/content.
+Grep "https://.*maptiler|https://.*mapbox|https://.*tiles" (type: js,ts,tsx,jsx,json,html,css)
+1 line of output
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\app.js
+Let me look at the actual map files before making changes.
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\app.js
+Grep "marker|leaflet|tooltip|popup" (in c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css)
+3 lines of output
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 569-588)
+Grep "#map|map-wrapper|map-page" (in c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css)
+17 lines of output
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 341-370)
+Got the full picture. The map uses Leaflet with OpenStreetMap raster tiles. The MapTiler URL is a vector GL style (style.json) — Leaflet can't render that. I need to swap Leaflet out for MapLibre GL JS, which supports GL vector styles natively. Three files need updating: map.html, map.js, and style.css.
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Modified
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Modified
+Now rewrite map.js to use the MapLibre GL API:
+
+Write c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+86 lines
+Now update the tooltip CSS to use MapLibre's popup class instead of Leaflet's:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+Done. Here's a summary of every change made:
+
+Changes
+map.html
+
+Swapped Leaflet CSS → MapLibre GL CSS (maplibre-gl@4.7.1)
+Swapped Leaflet JS → MapLibre GL JS (maplibre-gl@4.7.1)
+map.js
+
+L.map() → new maplibregl.Map() with the MapTiler dataviz-v4-light style URL as the style property (no separate tile layer needed — the style.json handles everything)
+L.marker() → new maplibregl.Marker() with .setLngLat([lng, lat])
+bindTooltip() → new maplibregl.Popup() triggered on mouseenter/mouseleave
+marker.setOpacity() → marker.getElement().style.opacity (for filter dimming)
+Markers are added inside glMap.on('load', ...) since MapLibre renders async
+style.css
+
+.leaflet-tooltip.s4d-tooltip → .maplibregl-popup.s4d-tooltip .maplibregl-popup-content
+::before arrow → .maplibregl-popup-tip
+c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+has there been any issue changing from laeflet to maplibre ?
+is there a thinking error in this execution ?
+Good question — let me audit the migration carefully.
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Here's a thorough audit. The migration logic is fundamentally correct, but there are 3 real issues worth flagging:
+
+✅ What's correct
+maplibregl.Map() with style: replaces both L.map() + L.tileLayer() in one shot — that's the right pattern for vector GL styles
+marker.getElement().style.opacity is the correct way to dim MapLibre markers (Leaflet had .setOpacity())
+maplibregl.Popup with closeButton: false + closeOnClick: false correctly replicates the hover-only tooltip behaviour
+DOM event listeners (close-panel, close-sheet) sit outside the load callback — correct, since they're on HTML elements not on the map
+⚠️ Issue 1 — Version number is unverified (most critical)
+maplibre-gl@4.7.1 was chosen without confirming it exists on unpkg. If that exact version doesn't exist, the entire map page silently breaks (no JS, no CSS). I should have pinned to a version I know is real.
+
+Fix:
+
+Web Fetchhttps://unpkg.com/maplibre-gl/package.json
+Fetched from https://unpkg.com/maplibre-gl/package.json
+Web Fetchhttps://unpkg.com/maplibre-gl@4.7.1/package.json
+Fetched from https://unpkg.com/maplibre-gl@4.7.1/package.json
+Good — 4.7.1 exists and loads fine. The version concern is resolved. Here's the full honest audit:
+
+✅ Issue 1 resolved — version 4.7.1 exists on unpkg (latest is 5.24.0, but 4.7.1 is valid and stable)
+⚠️ Issue 2 — Race condition in updatePins (real but very unlikely)
+markerList is populated inside glMap.on('load', ...), which is async. initFilters is called immediately after initMap in app.js, so the filter UI is ready before the map tiles arrive. If a user somehow applies a filter before the GL style finishes loading, updatePins runs on an empty markerList and silently does nothing.
+
+In practice essentially impossible (you'd have to interact with the UI in under ~200ms), but it's a real logical flaw. Not fixing it now unless you want me to.
+
+⚠️ Issue 3 — Popup tip CSS only half-correct (cosmetic)
+The CSS I wrote:
+
+
+.maplibregl-popup.s4d-tooltip .maplibregl-popup-tip { border-top-color: #ccc; }
+MapLibre auto-anchors the popup based on available space. border-top-color only makes the arrow grey when the popup is above the marker (anchor bottom). At map edges where it flips to top/left/right, the arrow stays the default dark colour. Minor, but not pixel-perfect. The original Leaflet tooltip always forced direction: 'top', so the arrow was always consistent.
+
+ℹ️ No actual thinking errors in the execution logic
+All MapLibre API calls are correct:
+
+new maplibregl.Map({ style: '...' }) — right
+new maplibregl.Marker().setLngLat([lng, lat]) — right (note: Leaflet uses [lat, lng], MapLibre uses [lng, lat] — this was handled correctly)
+marker.getElement().style.opacity for dimming — right
+popup.setLngLat(...).addTo(glMap) / popup.remove() on hover — right
+The [lng, lat] vs [lat, lng] coordinate order flip (Leaflet → MapLibre) is the trickiest part of this migration and it was done correctly throughout. That's where most people make a mistake.
+
+Summary: No showstopper bugs. The two things worth a future fix are the race condition guard and locking the popup anchor to bottom (to match the original tooltip direction). Want me to patch those?
+
+what do you mean by that:  locking the popup anchor to bottom (to match the original tooltip direction) ?
+In Leaflet, the tooltip was created with direction: 'top':
+
+
+marker.bindTooltip('...', { direction: 'top' })
+This means: the tooltip always appears above the marker, with the little arrow pointing down toward it. No matter where on the map the marker is, it never flips.
+
+In MapLibre, a Popup has an anchor option. anchor describes which point of the popup is pinned to the coordinate. So:
+
+anchor: 'bottom' → the bottom of the popup box is pinned to the marker → popup appears above, arrow points down ← same as Leaflet's direction: 'top'
+anchor: 'top' → popup appears below
+no anchor set → MapLibre auto-picks based on available screen space
+Right now the popup has no anchor, so near the top edge of the map it flips below the marker, near the right edge it shifts left, etc. The original Leaflet tooltip never did that.
+
+The fix is one line in the Popup options in map.js:
+
+
+const popup = new maplibregl.Popup({
+  offset: 25,
+  closeButton: false,
+  closeOnClick: false,
+  anchor: 'bottom',      // ← add this
+  className: 's4d-tooltip',
+})
+Want me to add it?
+
+yes, please
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 1 line
+Done. The popup will now always appear above the marker, arrow pointing down — consistent with the original Leaflet tooltip behaviour regardless of where on the map the marker sits.
+
+
+image.png
+2474×1485
+c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+have a look at the printscreen
+2 errors:
+
+image.png
+2474×1485
+have a look at the printscreen
+1 error:
+I want for the map, when it loads for the first time, to be zoomed on the world size
+for now, as you can see, not the entire world is on the map
+
+second, I want you to change the following in the 'project details' that pop up:
+each category shall be on a new line
+like sport is on one line (it can be 2 sports on the same line, but always the criteria from the same category
+
+same for all categories: target group, topic etc.
+
+ask questions if needee
+Two clear issues. Let me read the relevant code before touching anything.
+
+Grep "proj-meta|proj-name|proj-org|proj-desc|\.tag|proj-link" (in c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css)
+35 lines of output
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js (lines 2-16)
+Got it. Two things:
+
+Map zoom — minZoom: 2 is the blocker. At zoom 2 the world is ~1024px wide; on a ~1400px desktop the map should fit, but minZoom: 2 prevents zooming out, and zoom: 2 clips the world. Need to drop both.
+Tags — all three categories (sport, topic, target_group) are crammed into a single flex row. Need a separate row per category.
+Let me fix both:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Modified
+Now fix buildCardHTML — separate rows per category:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 3 lines
+Now update the CSS — .proj-meta becomes a column, .proj-meta-row is the flex row:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 1 line
+Done. Here's what changed:
+
+Map zoom — map.js:5-11
+
+zoom: 2 → 1.5 — shows the full world on load
+minZoom: 2 → 1 — allows the user to zoom out a touch further
+center: [10, 20] → [15, 15] — slightly recentered so the world sits symmetrically
+Tag rows — map.js:55-72 + style.css
+
+Each category (sport, topic, target_group) now gets its own <div class="proj-meta-row"> — so sports are always on one line, topics on the next, target groups below that
+Within a row, multiple tags from the same category still wrap naturally if they're long
+Empty categories produce no row at all (the row() helper guards against it)
+when I apply a filter, it works
+the non-relevant markers kinda become opaque
+
+but, when I click randomly somewhere on the website, they appear 'normally' again, even though the filter is still applied
+can you please fix that bug ?
+Need to see filters.js before guessing — the bug is almost certainly in how the filter callback is triggered.
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\filters.js
+Before writing any fix, I want to confirm whether MapLibre itself resets marker opacity during repaints — that's the most likely cause.
+
+Web Fetchhttps://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js
+Fetched from https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js
+Web Fetchhttps://raw.githubusercontent.com/maplibre/maplibre-gl-js/v4.7.1/src/ui/marker.ts
+Fetched from https://raw.githubusercontent.com/maplibre/maplibre-gl-js/v4.7.1/src/ui/marker.ts
+There's a _updateOpacity method that sets element.style.opacity asynchronously after every map interaction. That's the bug — it overwrites our 0.15. Let me see exactly what it does:
+
+Web Fetchhttps://raw.githubusercontent.com/maplibre/maplibre-gl-js/v4.7.1/src/ui/marker.ts
+Fetched from https://raw.githubusercontent.com/maplibre/maplibre-gl-js/v4.7.1/src/ui/marker.ts
+Found the exact cause. MapLibre's _updateOpacity runs asynchronously after every map interaction and resets element.style.opacity back to the marker's internal this._opacity (default '1'). Our 0.15 gets stomped every time the user clicks anywhere on the map.
+
+The proper fix is to use the official marker.setOpacity() API, which updates the internal _opacity property so _updateOpacity uses our value instead of overwriting it. Let me confirm it exists in v4.7.1:
+
+Web Fetchhttps://raw.githubusercontent.com/maplibre/maplibre-gl-js/v4.7.1/src/ui/marker.ts
+Fetched from https://raw.githubusercontent.com/maplibre/maplibre-gl-js/v4.7.1/src/ui/marker.ts
+setOpacity() exists in v4.7.1. The fix is a one-line change in updatePins:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Modified
+Done. Here's exactly what was happening:
+
+Root cause — MapLibre's internal _updateOpacity() method runs asynchronously after every user interaction (click, pan, zoom, etc.). Its job is to handle terrain occlusion (hide markers behind 3D mountains). On a flat map with no terrain, it simply resets element.style.opacity back to the marker's internal _opacity value — which defaults to '1'. That stomped our 0.15 every single time the user touched the map.
+
+Fix — Use marker.setOpacity('0.15') instead of marker.getElement().style.opacity = '0.15'. This writes into the marker's internal _opacity property, so when _updateOpacity runs it uses our value rather than the default.
+
+c#571-571
+where is the style of the markers defined ? in which document section ?
+Grep "marker|maplibregl-marker|pin" (in c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css)
+1 line of output
+Nowhere in your project. There is zero marker CSS in style.css.
+
+The blue pin markers are the MapLibre GL default marker, styled entirely by the CDN stylesheet you load in map.html:7:
+
+
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"/>
+That external file defines .maplibregl-marker and the SVG blue teardrop shape. Your project has no override for it — so if you want to customise the marker colour, size, shape, etc., you'd add rules to your own style.css targeting .maplibregl-marker, or pass a custom HTML element when creating the markers in map.js.
+
+if I want to customize it, which option is best to go with ?
+Two options, different levels of control:
+
+Option A — CSS override on .maplibregl-marker
+
+Add rules to your style.css targeting the default marker element.
+
+✅ Zero JS changes
+❌ Very limited — the default marker is an SVG baked into the MapLibre CSS as a background-image. You can nudge size or apply a filter: hack to shift the hue, but you can't cleanly change colour, shape, or add text. Fragile against MapLibre updates.
+Option B — Custom HTML element passed to the Marker constructor
+
+In map.js you pass your own DOM element:
+
+
+const el = document.createElement('div');
+el.className = 'map-pin';
+
+new maplibregl.Marker({ element: el })
+  .setLngLat([project.longitude, project.latitude])
+  .addTo(glMap);
+Then in style.css you style .map-pin however you like — size, colour, shape, border, icon, SVG, anything.
+
+✅ Full control over appearance
+✅ Clean, idiomatic MapLibre pattern
+✅ Works perfectly with marker.setOpacity() (the fix we just made)
+❌ Requires a small JS change (2–3 lines) and you write the CSS from scratch
+Go with Option B. Option A is a dead end for anything beyond trivial tweaks. Option B is the standard approach and gives you exactly what you'd expect from a CSS class.
+
+Want me to implement it? If so, tell me what you want the markers to look like (colour, shape, size, etc.) and I'll do both the JS and CSS.
+
+yes, I want the switch to be done
+what do you need to know ?
+for the color, I want the navy blue of the website
+Let me grab the navy blue from your CSS variables first:
+
+Grep "--primary|--navy|:root" (in c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css)
+161 lines of output
+Got it — navy blue is #003459 (--primary).
+
+Two things I still need from you:
+
+AskUserQuestion
+OUT
+Your questions have been answered: "What shape do you want for the markers?"="Teardrop / pin", "What size do you want?"="Medium (16–20px) (Recommended)". You can now continue with these answers in mind.
+Got everything I need. Navy is #003459 (--primary), teardrop pin, medium size.
+
+One note before coding: the teardrop shape is a 20×20 div rotated -45deg, which shifts the visual tip ~4px outside the layout box. I'll use anchor: 'bottom' on the Marker — the offset is negligible at world scale. Also, since we're now creating the element ourselves, we can drop the marker.getElement() call and use el directly.
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js (lines 14-38)
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 2 lines
+Now add the marker CSS. I'll place it right after the MapLibre popup section:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 18 lines
+Done. Here's what changed:
+
+map.js
+
+Creates a div.map-pin before the Marker and passes it via { element: el, anchor: 'bottom' }
+el is now defined upfront so the hover/click listeners attach directly — no more marker.getElement() call
+style.css
+
+.map-pin — navy #003459 teardrop, white 2.5px border, soft drop shadow, pointer: cursor
+.map-pin:hover — scales up 1.2× with a deeper shadow (the rotate(-45deg) is preserved in the hover transform so the shape doesn't snap back)
