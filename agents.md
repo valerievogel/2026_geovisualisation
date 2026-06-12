@@ -4770,3 +4770,29 @@ Measure first — tooltip is rendered invisibly so its real pixel size (tw, th) 
 Quadrant as default, flip if needed — e.g. for Darwin: quadrant says go right, but hx + 80 + 180 > mapRect.width, so it flips to go left → line goes from pin head, down 40 px, then left 80 px → tooltip appears to the left of the pin, fully inside the map, line fully visible
 The same flip logic applies to all four edges, so any pin near any border (including when the side panel or filter tray is open and shrinks the map) will always find a valid direction.
 
+
+#Exchanges with Agent - 12.06.2026
+
+When hovering over the pin, I want the pin to turn to '-- accent' color
+Let me look at the current map and style files to understand the pin setup.
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\map.html
+Let me check how the pins are created in the JS.
+
+Globpattern: "src/js/*.js"
+Found 3 files
+Grep "map-pin|svg|fill|marker|createElement" (in src/js/map.js)
+64 lines of output
+The pin SVG uses fill="#003459" hardcoded. I'll switch it to currentColor so CSS can control it, then add the hover color rule.
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Edit failed
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Now I'll make both changes — switch the SVG fill to currentColor and add the hover color in CSS:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Modified
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 2 lines
+Done. The pin SVG path now uses currentColor instead of a hardcoded hex, and the CSS sets color: var(--primary) by default and color: var(--accent) on hover — with a smooth 0.15s transition.

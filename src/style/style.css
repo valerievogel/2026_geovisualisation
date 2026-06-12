@@ -328,7 +328,8 @@ a:hover { text-decoration: underline; }
 .intro-card p  { font-size: 1rem; color: var(--muted); line-height: 1.7; }
 
 a.intro-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   transition: transform var(--transition), box-shadow var(--transition);
 }
@@ -338,6 +339,21 @@ a.intro-card:hover {
   box-shadow: 0 8px 24px rgba(0,52,89,.18);
   background: #e8f3ec;
   text-decoration: none;
+}
+
+.intro-card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  margin-top: auto;
+  padding-top: .75rem;
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.intro-card:hover .intro-card-btn {
+  font-weight: 700;
 }
 
 /* ── Map page layout ──────────────────────────────────── */
@@ -432,6 +448,14 @@ a.intro-card:hover {
 }
 
 .filter-option:hover { background: #eef2f7; }
+
+.filter-note {
+  width: 100%;
+  padding: .3rem 1rem .5rem;
+  font-size: .75rem;
+  font-style: italic;
+  color: var(--muted);
+}
 
 .filter-option input[type="checkbox"] {
   accent-color: var(--primary);

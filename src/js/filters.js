@@ -87,6 +87,11 @@ function buildDropdown(key, label, values) {
     panel.appendChild(lbl);
   });
 
+  const note = document.createElement('p');
+  note.className = 'filter-note';
+  note.textContent = '*Selecting multiple options shows projects matching any of your choices';
+  panel.appendChild(note);
+
   btn.addEventListener('click', e => {
     e.stopPropagation();
     const tray = document.getElementById('filter-panel-tray');
