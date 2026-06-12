@@ -4832,4 +4832,10 @@ Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\s
 Added 12 lines
 Done. Two buttons now appear at the bottom of the About page, separated from the content by a light divider line — "Find a Project" in accent fill and "Volunteering Guide" as an outlined button, both with arrows.
 
+in navigation bar, make words in navigation bar to turn to color --accent when hovering over with the mouse
+Simple CSS change — swap the hover from an opacity bump to the accent colour.
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Modified
+Done. Nav links now smoothly transition to --accent (#93C0A4) on hover, while the active link stays white.
 
