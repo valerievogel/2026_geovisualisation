@@ -606,17 +606,26 @@ a.intro-card:hover {
   word-break: break-word;
 }
 
+/* ── Map page title ───────────────────────────────────── */
+.map-title {
+  margin: 1.25rem 2rem 1rem;
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
 /* ── Map markers ──────────────────────────────────────── */
 .map-pin {
   width: 28px;
   height: 36px;
   cursor: pointer;
+  color: var(--primary);
   filter: drop-shadow(0 2px 4px rgba(0, 52, 89, 0.45));
-  transition: transform 0.15s ease, filter 0.15s ease;
+  transition: transform 0.15s ease, filter 0.15s ease, color 0.15s ease;
   transform-origin: bottom center;
 }
 
 .map-pin:hover {
+  color: var(--accent);
   transform: scale(1.2);
   filter: drop-shadow(0 4px 8px rgba(0, 52, 89, 0.55));
 }
