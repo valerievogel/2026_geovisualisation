@@ -83,10 +83,10 @@ a:hover { text-decoration: underline; }
   font-size: .9rem;
   font-weight: 500;
   opacity: .85;
-  transition: opacity var(--transition);
+  transition: color var(--transition), opacity var(--transition);
 }
 
-.site-nav a:hover,
+.site-nav a:hover { color: var(--accent); opacity: 1; text-decoration: none; }
 .site-nav a.active { opacity: 1; text-decoration: none; }
 
 .nav-toggle {
@@ -298,6 +298,18 @@ a:hover { text-decoration: underline; }
 
 .btn-outline { background: transparent; color: var(--white); border-color: var(--white); }
 .btn-outline:hover { background: var(--white); color: var(--primary); text-decoration: none; }
+
+.btn-outline-dark { background: transparent; color: var(--primary); border-color: var(--primary); }
+.btn-outline-dark:hover { background: var(--primary); color: var(--white); text-decoration: none; }
+
+.about-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
 
 .hero .btn-primary { background: var(--white); color: var(--primary); }
 .hero .btn-primary:hover { background: var(--accent); color: var(--primary); }

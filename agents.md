@@ -4771,7 +4771,10 @@ Quadrant as default, flip if needed — e.g. for Darwin: quadrant says go right,
 The same flip logic applies to all four edges, so any pin near any border (including when the side panel or filter tray is open and shrinks the map) will always find a valid direction.
 
 
-#Exchanges with Agent - 12.06.2026
+# Exchanges with Agent - 12.06.2026
+
+
+## Prompt - hover over
 
 When hovering over the pin, I want the pin to turn to '-- accent' color
 Let me look at the current map and style files to understand the pin setup.
@@ -4796,3 +4799,37 @@ Modified
 Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
 Added 2 lines
 Done. The pin SVG path now uses currentColor instead of a hardcoded hex, and the CSS sets color: var(--primary) by default and color: var(--accent) on hover — with a smooth 0.15s transition.
+
+## prompts for navigation change
+For the introduction cards, add the following buttons and link them to the correct part of the website
+use an arrow, and make it become 'bold' when hovering over
+
+'What is Sport for Development?' : 'Learn More'
+'Find a project': 'Find opportunities'
+'Get involved': 'How it Works'
+Show less
+Let me re-read index.html to get the exact current card markup before editing.
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\index.html (lines 34-88)
+Both edits in parallel — add the button spans to the cards, then add the CSS:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\index.html
+Added 3 lines
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 15 lines
+Also need to make the intro card a column flex so margin-top: auto pushes the button to the bottom:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 1 line
+Done. Each intro card now has a labelled button at the bottom with a → arrow. Hovering the card snaps the button text to bold.
+
+at the end of @src/about.html , add two button inviting to  explore the website
+1. 'Find a project' linking to the @src/map.html 
+2.  'Volunteering Guide' linking to @src/volunteer.html
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+Added 5 lines
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 12 lines
+Done. Two buttons now appear at the bottom of the About page, separated from the content by a light divider line — "Find a Project" in accent fill and "Volunteering Guide" as an outlined button, both with arrows.
+
+
