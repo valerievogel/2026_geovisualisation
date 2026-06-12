@@ -91,6 +91,11 @@ function initMap(projects) {
     minZoom: 1,
   });
 
+  glMap.addControl(new maplibregl.NavigationControl({
+    showZoom: true,
+    showCompass: true
+  }));
+
   glMap.on('load', () => {
     _initTooltipOverlay();
     glMap.on('movestart', _hideTooltip); // hide tooltip when map pans / zooms
