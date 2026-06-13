@@ -84,249 +84,125 @@
 
     <section aria-labelledby="topics-heading">
       <h2 id="topics-heading">Focus Areas</h2>
-      <p class="introduction-text">Sport is used across a range of areas to create meaningful impact. Hover over or click the icons to explore each one.</p>
+      <p class="introduction-text">Sport is used across a range of areas to create meaningful impact. Hover over or click on the cards to explore each one.</p>
 
-      <div class="hex-grid">
+      <div class="accordion" id="focus-accordion">
 
-        <!-- Child Protection -->
-        <div class="hex-card" tabindex="0" aria-label="Child Protection">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <path fill="currentColor" d="M20 3L33 9V21C33 29 20 37 20 37C20 37 7 29 7 21V9Z"/>
-                  <circle cx="20" cy="16" r="4.5" fill="white"/>
-                  <path fill="white" d="M13 28C13 22 27 22 27 28Z"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for child protection.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-child-protection">
+            Child protection <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-child-protection" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Child Protection</span>
         </div>
 
-        <!-- Democracy -->
-        <div class="hex-card" tabindex="0" aria-label="Democracy">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <rect x="7" y="18" width="26" height="17" rx="3" fill="currentColor"/>
-                  <rect x="14" y="18" width="12" height="4" rx="2" fill="white"/>
-                  <rect x="15" y="7" width="10" height="13" rx="2.5" fill="white"/>
-                  <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M18.5 13.5L20.5 15.5L23.5 11"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for democracy.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-democracy">
+            Democracy <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-democracy" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Democracy</span>
         </div>
 
-        <!-- Disability -->
-        <div class="hex-card" tabindex="0" aria-label="Disability">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <circle cx="28" cy="7" r="4" fill="currentColor"/>
-                  <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M28 11L25 20H18"/>
-                  <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M27 14L33 18"/>
-                  <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M25 20L30 27"/>
-                  <circle cx="19" cy="31" r="9" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <circle cx="19" cy="31" r="3" fill="currentColor"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for disability.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-disability">
+            Disability <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-disability" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Disability</span>
         </div>
 
-        <!-- Forced Displacement -->
-        <div class="hex-card" tabindex="0" aria-label="Forced Displacement">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <circle cx="19" cy="8" r="4" fill="currentColor"/>
-                  <circle cx="30" cy="9" r="5" fill="currentColor"/>
-                  <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M20 12L29 9"/>
-                  <path fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" d="M19 12L17 22"/>
-                  <path fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" d="M17 22L13 33M17 22L22 31"/>
-                  <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M19 15L14 19"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for forced displacement.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-forced-displacement">
+            Forced displacement <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-forced-displacement" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Forced Displacement</span>
         </div>
 
-        <!-- Education -->
-        <div class="hex-card" tabindex="0" aria-label="Education">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <path fill="currentColor" d="M20 11C20 11 8 13 8 21V33H20V11Z"/>
-                  <path fill="currentColor" d="M20 11C20 11 32 13 32 21V33H20V11Z"/>
-                  <rect x="19" y="11" width="2" height="22" rx="1" fill="white"/>
-                  <rect x="10" y="20" width="8" height="2.5" rx="1.25" fill="white"/>
-                  <rect x="10" y="25" width="8" height="2.5" rx="1.25" fill="white"/>
-                  <rect x="22" y="20" width="8" height="2.5" rx="1.25" fill="white"/>
-                  <rect x="22" y="25" width="8" height="2.5" rx="1.25" fill="white"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for education.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-education">
+            Education <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-education" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Education</span>
         </div>
 
-        <!-- Employability -->
-        <div class="hex-card" tabindex="0" aria-label="Employability and Economic Development">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <rect x="5" y="15" width="30" height="20" rx="3" fill="currentColor"/>
-                  <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M14 15V11Q14 8 20 8Q26 8 26 11V15"/>
-                  <rect x="5" y="23" width="30" height="3" rx="1.5" fill="white"/>
-                  <path fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M20 32V21M16 25L20 21L24 25"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for employability.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-employability">
+            Employability and Economic development <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-employability" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Employability &amp; Economic Development</span>
         </div>
 
-        <!-- Environmental Sustainability -->
-        <div class="hex-card" tabindex="0" aria-label="Environmental Sustainability">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <ellipse cx="20" cy="35" rx="11" ry="3.5" fill="currentColor" fill-opacity="0.35"/>
-                  <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M20 35Q19.5 27 20 20"/>
-                  <path fill="currentColor" d="M20 27Q13 23 13 15Q17 11 20 24Z"/>
-                  <path fill="currentColor" d="M20 27Q27 23 27 15Q23 11 20 24Z"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for environmental sustainability.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-environment">
+            Environmental sustainability <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-environment" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Environmental Sustainability</span>
         </div>
 
-        <!-- Gender Equality -->
-        <div class="hex-card" tabindex="0" aria-label="Gender Equality">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <circle cx="13" cy="12" r="5.5" fill="currentColor"/>
-                  <rect x="11.5" y="17" width="3" height="8" rx="1.5" fill="currentColor"/>
-                  <rect x="8" y="22" width="10" height="3" rx="1.5" fill="currentColor"/>
-                  <circle cx="27" cy="12" r="5.5" fill="currentColor"/>
-                  <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M31 8L36 3M32.5 3H36V6.5"/>
-                  <rect x="12" y="32" width="16" height="3" rx="1.5" fill="currentColor"/>
-                  <rect x="12" y="37" width="16" height="3" rx="1.5" fill="currentColor"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for gender equality.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-gender">
+            Gender equality <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-gender" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Gender Equality</span>
         </div>
 
-        <!-- Health -->
-        <div class="hex-card" tabindex="0" aria-label="Health">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <path fill="currentColor" d="M20 33C18 31 5 23 5 13C5 8 9 5 13 5C16 5 19 7 20 9C21 7 24 5 27 5C31 5 35 8 35 13C35 23 22 31 20 33Z"/>
-                  <path fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 19H10L12 14L15 24L17 18H23L25 14L28 24L30 19H35"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for health.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-health">
+            Health <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-health" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Health</span>
         </div>
 
-        <!-- Peacebuilding -->
-        <div class="hex-card" tabindex="0" aria-label="Peacebuilding">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width="4"/>
-                  <path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" d="M20 5V35M20 20L8 27M20 20L32 27"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for peacebuilding.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-peacebuilding">
+            Peacebuilding <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-peacebuilding" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Peacebuilding</span>
         </div>
 
-        <!-- Policy -->
-        <div class="hex-card" tabindex="0" aria-label="Policy">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <path fill="currentColor" d="M8 4H26L32 10V36H8Z"/>
-                  <path fill="white" fill-opacity="0.55" d="M26 4V10H32Z"/>
-                  <rect x="12" y="17" width="16" height="2.5" rx="1.25" fill="white"/>
-                  <rect x="12" y="22" width="16" height="2.5" rx="1.25" fill="white"/>
-                  <rect x="12" y="27" width="10" height="2.5" rx="1.25" fill="white"/>
-                  <circle cx="27" cy="31" r="7" fill="white"/>
-                  <circle cx="27" cy="31" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                  <circle cx="27" cy="31" r="1.5" fill="currentColor"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for policy.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-policy">
+            Policy <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-policy" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Policy</span>
         </div>
 
-        <!-- Violence Prevention -->
-        <div class="hex-card" tabindex="0" aria-label="Violence Prevention">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <path fill="currentColor" d="M20 4L33 9V21C33 29 20 36 20 36C20 36 7 29 7 21V9Z"/>
-                  <path fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" d="M14 15L26 27M26 15L14 27"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for violence prevention.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-violence">
+            Violence prevention <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-violence" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Violence Prevention</span>
         </div>
 
-        <!-- Youth Development -->
-        <div class="hex-card" tabindex="0" aria-label="Youth Development">
-          <div class="hex-shape">
-            <div class="hex-inner">
-              <div class="hex-front">
-                <svg viewBox="0 0 40 40" aria-hidden="true">
-                  <circle cx="20" cy="7" r="4" fill="currentColor"/>
-                  <path fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" d="M9 8L20 16L31 8"/>
-                  <path fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" d="M20 16V27"/>
-                  <path fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" d="M20 27L15 37M20 27L25 37"/>
-                </svg>
-              </div>
-              <div class="hex-back"><p>Placeholder text for youth development.</p></div>
-            </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-youth">
+            Youth development <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-youth" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text</p></div>
           </div>
-          <span class="hex-label">Youth Development</span>
         </div>
 
       </div>
@@ -359,11 +235,12 @@
       toggle.setAttribute('aria-expanded', open);
     });
 
-    // Hex flip: click only on touch devices
-    const isTouch = !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    document.querySelectorAll('.hex-card').forEach(card => {
-      card.addEventListener('click', () => {
-        if (isTouch) card.classList.toggle('flipped');
+    document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const panel = document.getElementById(trigger.getAttribute('aria-controls'));
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+        trigger.setAttribute('aria-expanded', !isOpen);
+        panel.classList.toggle('open', !isOpen);
       });
     });
   </script>
