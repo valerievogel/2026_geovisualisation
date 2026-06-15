@@ -1,6 +1,6 @@
 # Document de synthèse
 
-Ce document a pour objectif d'expliquer le contexte, les réfléxions et l'évaluation personnelle de la géovisualisation créé dans le cadre du cours _géovisualisation P26_.
+Ce document a pour objectif d'expliquer le contexte, les réflexions et l'évaluation de la géovisualisation créée dans le cadre du cours _géovisualisation P26_. Il abordera les motivations personnelles à l'origine du projet, puis suivra chronologiquement les étapes de sa conception. La vision et le plan ayant guidé la conception du projet seront présentés en premier, puis l'implémentation concrète et l'évaluation seront abordées, avant d'ouvrir une discussion sur de futures pistes d'évolution.
 
 ## Motivation personnelle pour le projet
 
@@ -8,26 +8,29 @@ Tout d'abord, je souhaite expliquer comment j'ai décidé de créer un site web 
  Le choix de ce sujet provient de mon intérêt profond pour cette approche. Etant donné que dans mes études de master en _Développement et Environnement_, les projets de coopération internationale sont analysés d'un point de vue très critique, il m'a fallu beaucoup de temps pour trouver une approche dans la coopération internationale, que je puisse à la fois considérer comme cohérente et défendre avec conviction. Je souhaite alors me dédier professionnellement à ce domaine, en Suisse ou à l'étranger. Ma motivation première était de pouvoir soumettre un projet concret lors de mes futures candidatures pour des postes de travail. En plus de cela, je souhaitais déjà maintenant, malgré que je ne travaille pas encore dans ce domaine, dédier mon temps et mes compétences à développer un projet qui a du sens et qui peut s'avérer utile pour autrui.
  D'un point de vue plus technique, je souhaitais me familiariser avec davantage d'outils pour la programmation de sites web et de cartographie. Cela me semble une compétence fortement utile pour se vendre sur le marché de travail. Puisque les LLM progrèssent à une vitesse élevé, j'ai décidé de ne pas apprendre la programmation depuis les bases, mais plus tôt de me focaliser sur comment utiliser les LLM comme outil afin de réaliser mon projet et mes objectifs. Cela me semblait bien plus pertinent au lieu de passer des heures à apprendre à programmer alors que cela sera de plus en plus remplacé par les LLM. Mon objectif était donc de découvrir comment se servir des LLM afin de réaliser ses idées et objectifs.
 
+## Vision et plan
 
-## Pourquoi cette visualisation ?
+Gulliksen et al. (2003, p.401) définissent la conception de systèmes centrée sur l'utilisateur comme suit:  «User-centred system design (UCSD) is a process focusing on usability throughout the entire development process and further throughout the system life.»
+Selon les principes de UCSD (cf. figure xx), j'ai d'abord centré mes réflexions sur la vision et les objectifs du projet de géovisualisation, les besoins des utilisateurs ainsi que les considérations de design, afin de garantir la conception d'un projet centré sur les besoins et les attentes de l'utilisateur. Cette section abordera alors les réflexions autour de la création du projet et les étapes parcourues, allant de la définition des objectifs jusqu'à la conception d'un prototype.
+
+![User centered system designs](../src/assets/USCD.JPG)
+Figure xx - User centered system design principles (Gulliksen et al., 2003)
+
+### Pourquoi cette visualisation ?
 
 J'ai commencé par faire des recherches sur  le sujet S4D afin de trouver une potentielle lacune à combler. J'avais déjà une piste puisque j'avais essayé de trouver des projets dans ce domaine, afin de collaborer avec eux dans le cadre de mon travail de mémoire. Je me souvenais alors que j'avais eu beaucoup de peine à trouver des projets concrets. Chaque organisation met sur son site web les projets qu'elle a lancé, mais aucun site web ne regroupe les projets de toutes les organisations de S4D. Par conséquent, la recherche pour trouver un projet prend beaucoup de temps puisqu'il faut parcourir chaque site web.
 Le site [sportanddev](https://www.sportanddev.org/), qui se veut une plateforme internationale du sujet, ne regroupe uniquement les organisations et non les projets de ces-mêmes.
-Je me suis donc dit qu'il était dommage que des personnes souhaitant s'investir dans ces projets abandonnent en raison du manque d'informations centralisées ou découragées par l'effort que cela représente.
-Ainsi est née l'idée de créer une carte regroupant les projets de S4D en cours, incluant divers sports, organisations et domaines thématiques. L'idée est d'offrir aux potentiels bénévoles une vue d'ensemble des initiatives existantes et au final leur faciliter la prise de contact avec les organisations concernées.
-La simple création d'une carte ne me semblait pas suffisante pour fournir suffisamment de contexte. C'est pourquoi j'ai décidé de l'intégrer dans un site web permettant de contextualiser la carte et d'informer sur l'approche S4D pour ceux qui n'en auraient encore jamais entendu parler.
+Je me suis donc dit qu'il était dommage que des personnes souhaitant s'investir dans ces projets abandonnent par manque d'informations centralisées ou découragées par l'effort que cela représente. Il en ressort un besoin de centralisation visuelle des projets de S4D en cours, couvrant divers sports, organisations et domaines thématiques. Ainsi est née l'idée d'offrir aux potentiels bénévoles une vue d'ensemble des initiatives existantes et dans un second temps, de leur faciliter la prise de contact avec les organisations concernées. La simple création d'une carte ne semblait toutefois pas suffisante pour fournir assez de contexte, c'est pourquoi elle a été intégrée dans un site web permettant de contextualiser la carte et d'informer sur l'approche S4D pour ceux qui n'en auraient encore jamais entendu parler.
 
 ### Objectifs et justification
 
-Mon projet de géovisualisation se compose de deux parties : le site web et la carte interactive. Le site web a pour objectif d'introduire l'approche S4D, tandis que la carte interactive vise à montrer aux personnes souhaitant faire du bénévolat où se trouvent les projets en cours à la recherche de bénévoles. Ces deux composantes répondent alors à des questions distinctes. Le site web a pour objectif de répondre à la question:
+Ce projet de géovisualisation se compose de deux parties : le site web et la carte interactive. Le site web a pour objectif d'introduire l'approche S4D, tandis que la carte interactive vise à montrer aux personnes souhaitant faire du bénévolat où se trouvent les projets en cours à la recherche de bénévoles. Ces deux composantes répondent alors à des questions distinctes. Le site web a pour objectif de répondre à la question:
 - Qu’est-ce que l’approche S4D ?
 
 La carte interactive, quant à elle, vise à répondre à la question:
 - En fonction des compétences et préférences personnelles, où se trouvent des projets de S4D en cours, qui sont à la recherche de bénévoles ?
 
 Ce projet de géovisualisation est donc important car il comble une lacune sur le web. Selon mes connaissances, il n'existe à ce jour aucun répertoire regroupant les projets de diverses organisations de S4D à travers différents pays. Afin de faciliter la recherche pour les utilisateurs, il est pertinent de centraliser l'accès à l'information sur une carte interactive dotée de filtres avancés et l'intégrer dans un site web dédié à la thématique. Ce projet répond ainsi à un besoin concret et identifié.
-
-- mettre schéma qui montre que d'abord commencer à réfléchir au besoin et après créer projet
 
 ### Public-cible
 
@@ -37,19 +40,57 @@ Ce projet de géovisualisation est donc important car il comble une lacune sur l
 ![Persona 1](../src/assets/persona1.JPG)
 ![Persona 2](../src/assets/persona2.JPG)
 
+Différents usability requirements: une fois sur ordinateur, une fois sur smartphone (et j'inclus tablet là-dedans) - besoin de design différents vue que taille d'écran différente et manière d'interagir différentes
 
-## La visualisation
+### Cadre technique
 
-von Präse: 05b_viz_example_pres --> approche 'documentation d'abord': 1. Documentation (définir objectifs, contenu et cadre technique d'abord)
-- donc aussi créé un prototype (d'abord dessin sur papier, puis demandé à LLM de créer prototype site web) -- add pictures
-2. Implémentation
-3. Evlauation
+- HTML + CSS
+- bibliothèque cartographique: Maptiler ??
+- fond de carte (dataviz light grey ?)
+no color pour bien faire ressortir les projets
+- format de données: tiles ? (afin qu'ils soient modifiables)
+- serveur ou fichiers statique ? API or excel file finally ?
 
-### Description
+### Création d'un prototype
+
+- Description de la visualisation
+- Photo prototype de la carte
+- (d'abord dessin sur papier - add pictures)
+
+
+## Conception
+
+Après avoir réfléchi à la vision et avoir créé un prototype, je me suis mise à la conception du projet. Cette partie aborde alors toutes les parties liées à l'implémentation concrete.
+
+### Utilisation du Large Language Model (LLM)
+
+- utilisé Claude Sonnet 4.6 (?), always en mode 'ask before edit'
+- tout échange documenté sur [agents.md](../agents.md)
+- dans 3 steps selon doc - implémentation - évaluation (05b_viz_example_pres)
+- procédé avec Readme
+--> documentation - objectifs, contenu, cadre technique
+moi qui a créé les fichiers: doc, src ...
+--> demande d'un plan d'implémentation
+--> évaluation: amélioration itérative (je lui ai donné des printscreen afin d'améliorer par exemple)
+
+Concrètement, le LLM m'a aidé à concevoir: structure du site web et de la carte, l'interactivité de la carte, programmation du site en html, style css, corrections majeurs de bug ...
+
+MOI
+- créé le readme
+- cré le document de synthèse
+- trouvé les sources d'informations et créé tous les textes
+- réfléchi au design de la visualisation selon la bibliographie
+- choisi la palette de couleur, les images
+- fait des adaptations dans le code, ajouté les textes dans le code
+- cherché les bugs
+
+J'ai également été transparente sur le site web en déclarant avoir utilisé un LLM pour la conception du site et de la carte.
 
 ### Réfléxions et justifications 
 
-SITE WEB
+Tout au long de la conception, autant pour le site web que pour la carte interactive, le principe de simplicité de la représentation a guidé les choix de design, afin que l'interface reste compréhensible et accessible pour l'utilisateur (Gulliksen et al., 2003). L'utilisation d'une palette de couleur limitée, la conception d'ineractions intuitives ou encore la navigation et structure claire en témoignent. **MOOOOORE !!!!**
+
+**Le site web**
  --> strive for consistency - toujours même couleurs sur site web (définirion de primary color, accent color etc.) -- (Shneiderman & Plaisant, 2004, 8 règles d'or)
 
  --> vue initiale prête: landing page montre directement toutes les sections à découvrir, dit de quelle thématique le site parle
@@ -65,10 +106,18 @@ SITE WEB
 
 --> écriture et polices: Sans serif pour titre (sans les empattements en-bas des lettres) // Avec serif pour texte (nous permet de lire plus rapidement, car ca fait comme s'il y avait ligne dessous) (présentation 3b)
 
+Pour la section _Focus Areas_ de la page _About Sport for Development_, l'idée initiale était de concevoir des hexagones avec des icônes représentant les différentes thématiques au sein desquelles les projets de S4D opèrent. En survolant les hexagones, davantage d'informations sur la thématique devaient s'afficher.
+Toutefois, après avoir implémenté une première version des hexagones sur le site, le design ne m'a pas convaincue. Avec du recul, je me suis demandé si ce design apportait réellement une plus-value à l'utilisateur. Munzner (2014) affirme qu'il faut non seulement réfléchir à l'utilité que la 3D peut apporter, mais également se demander si une représentation visuelle est justifiée, car une simple liste permet parfois de représenter l'information de manière tout aussi concise. Après réflexion, j'ai réalisé que la représentation sous forme d'hexagones retournables avec icônes n'était pas justifiée. En appliquant le principe de simplicité (Gulliksen et al., 2003), il semblait plus pertinent de créer un accordéon, qui remplit aussi bien la tâche de donner une vue d'ensemble des thématiques et d'afficher davantage d'informations en un clic, si l'utilisateur souhaite en explorer une. 
 
 
-CARTE
---> appliqué le 'mantra de Shneiderman': «Overview first, zoom and filter, then details on demand» (présentation 5a et Shneiderman, B. (1996). The Eyes Have It: A Task by Data Type Taxonomy for Information Visualizations. Proc. IEEE Symposium on Visual Languages, 336–343.)
+**La carte interactive**
+
+Selon le cube cartographique de MacEachren (1994), toute visualisation cartographique peut être positionnée selon le public visé, la tâche poursuivie et le niveau d'interactivité (cf. figure xx). Cette géovisualisation se positionne clairement du côté public, puisqu'elle s'adresse à des bénévoles potentiels extérieurs au projet. Elle relève davantage de la présentation que de l'exploration, puisqu'elle communique des données connues plutôt que de chercher à découvrir des patterns inconnus. Enfin, le niveau d'interactivité est élevé puisque l'utilisateur peut filtrer les projets selon ses préférences, survoler les _pins_ pour obtenir un résumé et cliquer dessus pour accéder aux détails. Les fonctions de filtrage et de mise en évidence, permettant d'interagir directement avec les données, constituent une réelle plus-value justifiant le choix d'une carte interactive (Crampton, 2013). En effet, une carte statique n'aurait pas permis à l'utilisateur d'explorer les données selon ses propres critères.
+
+![](../src/assets/cube_MacEachren.JPG)
+Figure xx - Le cube cartographique (MacEachren, 1994)
+
+--> appliqué le 'mantra de Shneiderman' (1996): «Overview first, zoom and filter, then details on demand» (présentation 5a)
 - Interactions: d'abord overview - directement vue sur la carte zoom mondial pour la vue d'ensemble
 --> règle de 'vue initiale prête' (présentation 4b)
 - possible de filtrer dans un second temps pour plus d'infos et de zoom in pour avoir plus d'infos (gentilment batiments, routes etc plus de détails qui s'affichent)
@@ -76,11 +125,7 @@ CARTE
 --> hover over (que fonctionnel et pertinent pour ordi pas des interfaces qui fonctionnent majoritairement avec un touchscreen): économiser les clics (efficient)
 --> Options avancées avec un seul clic (cliquer sur pin, puis cliquer sur lien pour arriver à nouveau site web)
 
---> Interaction Carte
-- chaque interaction doit servir une tâche spécifique (présentation 5a)
-- Cases à cocher → sélection multiple (présentation 4b)
-
-- offer informative feedback: pin turns 'transparent' when filters don't apply - stay dark blue if filters apply AND informative feedback of pin turning to 'accent color' so show that one can click on it
+--> Cases à cocher → sélection multiple (présentation 4b)
 
 La règle d'or 3 de Shneiderman et Plaisant (2004) exige d'offrir un retour informatif. Sur la carte interactive, cela a été pris en compte par les choix suivants:
 - une transparence plus élevé des _pins_ sur la carte lorsque le critère d'un filtre ne s'applique pas à un projet, afin de faire ressortir les projets auxquels ce critère s'applique (cf. figure xx) 
@@ -94,25 +139,33 @@ Les explications ci-dessus montrent que toute action permettant d'interagir avec
 
 La règle d'or 4, qui demande d'établir une séquence guidée par une progression et une fin clairement définie, a été prise en compte (Shneiderman & Plaisant, 2004). La séquence commence par une vue initiale de la carte affichant les projets avec les _pins_ bleues. L'utilisateur peut ensuite appliquer des filtres, _hover over_ un projet pour afficher des informations synthétiques, cliquer dessus pour en afficher davantage, et finalement soit cliquer sur le lien redirigeant vers le site de l'organisation concernée, soit revenir en arrière en cliquant sur un autre projet ou en utilisant _clear filters_. La séquence prend ainsi une fin définie.
 
-La fonction _clear filters_, placé à droite des filtres à séléctionner (cf. figure xx), répond à la règle d'or _permit easy reversal of actions_ (Shneiderman & Plaisant, 2004). Ainsi, si l'utilisateur a par erreur coché une case qu'il ne souhaitait pas sélectionner,il peut en un seul clic revenir à la vue initiale affichant tous les projets existants, grâce à la fonction _clear filters_ qui supprime la sélection des filtres appliqués.
+La fonction _clear filters_, placé à droite des filtres à séléctionner (cf. figure xx), répond à la règle d'or _permit easy reversal of actions_ (Shneiderman & Plaisant, 2004). Ainsi, si l'utilisateur a coché une case par erreur,il peut en un seul clic revenir à la vue initiale affichant tous les projets existants, grâce à la fonction _clear filters_ qui supprime la sélection des filtres appliqués.
 
-![Clear Filters](../src/assets/clear_filters.JPG)
-Figure xx - La fonction _clear filters_
+Pour la représentation cartographique
+- décidé de prendre modèle en noir-blanc afin de faire ressortir les pins bleues qui sont l'information que ma carte a comme objectif de communiquer
+- selon lecture Healy (gleubs präse 1): couleur percu plus vite forme (donc ainsi relever information centrale)
 
 
-- justifier vos choix au niveau de la représentation cartographique, de l'interactivité, de la communication graphique et les aspects facilité d'utilisation, efficacité etc.
--sémiologie, interactions, communication graphique etc.
+- justifier vos choix au niveau de la représentation cartographique (sémiologie), de l'interactivité, de la communication graphique et les aspects facilité d'utilisation, efficacité etc.
 
 
 ## Evaluation
 
+Cette section est dédiée à l'évaluation du projet de géovisualisation. Elle abordera les points forts et les faiblesses du projet, les tests utilisateurs, ainsi que les améliorations entreprises.
+
 ### Forces et faiblesses
 
+**Forces**
+
+- roth (2013) - entweder Kurs 1 oder 2 --> Pas plus de 1-2 secondes pour que la carte réagisse à l'interaction, sinon risque de rupture de la réfléxion visuelle et perte d'attention
+
+**Faiblesses**
 - Pas encore des données réelles
+- prototype n'a pas été faite en coopération avec les utilisateurs (Gulliksen et al., 2003), je n'ai seulement testé
 
 ### Résultat des tests utilisateurs
 
-dire que étape d'évaluer selon les utilisateurs
+Finalement, après avoir créé une première version du projet de géovisualisation, j'ai procédé à son évaluation par des utilisateurs, conformément aux principes du UCSD (cf. figure xx), afin de l'améliorer itérativement.
 
 Retour amis hors fac, mais universitaire et famille (~10 personnes)
 - Réfléxion sur catégories des filtres: athletes femmes (solution: ajouté note)
@@ -133,3 +186,17 @@ Future aims
 ## Conclusion
 
 ## Bibliographie
+
+Crampton J.W. (2002). Interactivity Types in Geographic Visualization. _Cartography and Geographic Information Science, 29_(2), 85-98. https://doi.org/10.1559/152304002782053314
+
+
+
+Gulliksen, J., Göransson, B., Boivie, I., Blomkvist, S., Persson, J., & Cajander, Å. (2003). Key principles for user-centred systems design. _Behaviour & Information Technology, 22_(6), 397–409. https://doi.org/10.1080/01449290310001624329
+
+MacEachren, A. M. (1994). Visualization in modern cartography: Setting the agenda. In A. M. MacEachren & D. R. F. Taylor (Eds.), _Visualization in modern cartography_ (Vol. 2, pp. 1–12). Academic Press. https://doi.org/10.1016/B978-0-08-042415-6.50008-9
+
+Munzner, T. (2014). _Visualization Analysis and Design._ A K Peters/CRC Press. https://doi.org/10.1201/b17511
+
+Shneiderman, B. (1996). The eyes have it: a task by data type taxonomy for information visualizations. _Proceedings of the IEEE Symposium on Visual Languages_, 336-343, https://doi.org/10.1109/VL.1996.545307.
+
+Shneiderman, B. & Plaisant, C. (2004). _Designing the User Interface: Strategies for Effective Human-Computer Interaction_ (4th Edition). Pearson Addison Wesley. 
