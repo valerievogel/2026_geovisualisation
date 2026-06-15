@@ -45,6 +45,12 @@ not card without context
 
 ### Résultat des tests utilisateurs
 
+- Réfléxion sur catégories des filtres: athletes femmes (solution: ajouté note)
+- Hover over - pin devient bleu clair - rendre visible que possible de cliquer dessus
+- Créer des buttons de zoom
+
+- changer d'image pour les différents sites, car sinon un peu monotone
+
 ## Discussion
 
 - future aims: add contact formular for ONG's so that I can just add the information

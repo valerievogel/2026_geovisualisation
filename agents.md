@@ -4864,3 +4864,36 @@ whit the following titles per section:
 Write in each section "placement text". I'll add content later on.
 
 Don't hesitate to ask questions. And tell me 'hell no' if something doesn't work out or is not logical.
+
+I'll add accordion CSS and wire up the JS.
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 11 lines
+Now add the accordion in HTML:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+Added 52 lines
+Now add the accordion JS before the closing </script> tag:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\about.html
+Added 9 lines
+Done. Here's how it works:
+
+All 13 topics are listed as a compact bordered list with dark-blue rows
+Click any row → it expands smoothly to show the content, the chevron flips up
+Click again → collapses. Multiple rows can be open at the same time, which makes sense for reading through topics
+The darker shade on open/hover gives clear visual feedback
+When you're ready to add real content, just replace <p>Placeholder text</p> inside each .accordion-panel-inner.
+
+The design is too heavy. Go for white rows, primary color text + left accent bar on open.
+Make a colored left bar appear when a row is expanded.
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 10 lines
+Done. What changed:
+
+Trigger rows are now white with primary-colored text — no heavy fill
+The outer border is now a light --border grey, not full primary blue
+When a row is open, a 4px accent-green left bar appears on that item
+Hover is a very soft blue-grey tint
+The chevron is muted grey so it doesn't compete with the text
