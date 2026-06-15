@@ -55,27 +55,19 @@ Les contextes de l'utilisation de la géovisualisation sont distincts. Persona 1
 Avant d'implémenter le projet, il est important de réfléchir au cadre technique. A travers la bonne planification de ce-même permet d'anticiper la cohérence et la compatibilité entre les différents outils et programmes.
 
 Durant la planification, il a donc été définie que le site web allait être développé en HTML, CSS et JavaScript. Le fichier HTML permet de structurer le contenu, alors que le fichier CSS définit le style visuel et le JavaScript est dédié à l'interactivité du site. J'ai pris ces choix en fonction de recommendations du LLM qui affirmait que cette combinaison constitue l'approche standard pour le développement de sites web statiques. J'ai souhaité programmer le site depuis la base sans utiliser aucun framework.
-Des échanges avec le LLM et des recherches approfondies m'ont mené à prendre la décision de ne pas utiliser de _back-end server_.
-- étant donné que pour l'instant contenu pas dynamique
-- Les données des projets sont dans un simple fichier projects.json (statique)
-- Il n'y a pas de login, pas de formulaire traité, pas de base de données
+Des échanges avec le LLM ainsi que des recherches approfondies ont montré que l'utilisation d'un _back-end server_ n'est pas nécessaire, étant donné que pour l'instant le contenu pour la géovisualisation est peu dynamique, que les données sont stockés dans un fichier statique et qu'il n'y a ni login ni formulaire à traiter.
 
-La bibliothèque cartographique utilisé pour ce projet est MapLibre GL JS. Il s'agit d'une bibliothèque open source qui gère l'affichage et l'interactivité de la carte.
-Le modèle _dataviz light_ a été extrait comme fond de carte à partir du service de tuiles vectorielles MapTiler. 
-sage weshalb tuiles vectorielles genommen und nicht das andere (=format de données)
+La bibliothèque cartographique utilisé pour ce projet est [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/). Il s'agit d'une bibliothèque open source qui gère l'affichage et l'interactivité de la carte.
+Le modèle [_dataviz light_](https://cloud.maptiler.com/maps/dataviz-v4-light/?_gl=1*1c06ydg*_gcl_au*ODkwNjM4MjI3LjE3Nzk2OTY2OTYuOTM0NTM0OTY3LjE3Nzk2OTY3MDIuMTc3OTY5NjcwMQ..*_ga*MTI3NjExNzA0Mi4xNzc5Njk2Njk3*_ga_K4SXYBF4HT*czE3Nzk2OTY2OTYkbzEkZzEkdDE3Nzk2OTc2ODEkajYwJGwwJGgw) a été extrait comme fond de carte à partir du service de tuiles vectorielles [MapTiler Cloud](https://cloud.maptiler.com/maps/).
 
-Dans un premier temps, j'avais pensé utiliser des tuiles raster et donc j'avais initialement utilisé la bibliothèque Leaflet.js avec des tuiles raster OpenStreetMap.
-Je me suis rendu compte que ... Donc, les tuiles vectorielles ont été préférées aux tuiles raster, car elles offrent un rendu net à tous les niveaux de zoom et permettent d'adapter le style du fond de carte (couleurs, typographie) sans perte de qualité. Cette flexibilité est particulièrement pertinente pour une carte interactive dotée d'un zoom libre, où la lisibilité doit être garantie à toutes les échelles.
-Suite à l'intégration d'un style vectoriel MapTiler, un changement de bibliothèque s'est avéré nécessaire, Leaflet ne supportant pas les styles GL vectoriels (style.json). MapLibre GL JS a alors été adopté, car il prend en charge nativement ce format et permet de tirer pleinement parti des tuiles vectorielles.
+Dans un premier temps, j'avais pensé utiliser des tuiles raster et donc j'avais initialement utilisé la bibliothèque [Leaflet JS](https://leafletjs.com/) avec des tuiles raster [OpenStreetMap](https://www.openstreetmap.org/#map=2/12.9/-59.9). J'avais trouvé un modèle de fond de carte en couleurs claires qui me semblait initialement assez discret. En échangeant avec mon superviseur, j'ai alors réalisé qu'un fond de carte en nuances grises permettait de mieux faire ressortir mes données. Par ailleurs, en raison de mon manque d'expérience, je ne m'étais pas rendu compte que, contrairement aux tuiles raster, les tuiles vectorielles offrent un rendu net à tous les niveaux de zoom. J'avais également envisagé de personnaliser le fond de carte moi-même, ce qui n'est possible qu'avec les tuiles vectorielles. J'avais abandonné cette idée assez rapidement faute de temps à disposition. Finalement, étant donné que le zoom était prévu comme option d'interactivité, il semblait évident qu'il fallait passer des tuiles raster aux tuiles vectorielles afin de garantir la qualité de l'affichage.
+Ce choix impliquait le changement de la bibliothèque Leaflet JS vers Maplibre GL JS puisque Laeflet JS ne supporte pas les styles GL vectoriels (style.json). MapLibre GL JS a alors été adopté, car il prend en charge nativement ce format. De plus, il pouvait accueillir le modèle de fond de carte _dataviz light_ gratuitement accessible. D'autres modèles du même type, tels que celui d'ArcGIS, n'étaient pas accessibles gratuitement. Cela a orienté le choix final. Toutefois, l'utilisation du modèle mis à disposition par MapTiler a impliqué que je devais modifier mon plan initial et recourir à une clé API puisque cet outil authentifie les requêtes d'accès à ses fonds de carte.
 
-- fond de carte (dataviz light grey ?)
-no color pour bien faire ressortir les projets
-sage dass hierfür API key benötigt
-andere Modelle in schwarz-weiss waren nicht gratis (zB von arcgis)
-- serveur ou fichiers statique ? API or excel file finally ?
+Pour le format de la base de données, il était initialement prévu d'utiliser un fichier excel nommé [database_projects.xlsx](../src/data/database_projects.xlsx). Toutefois, après avoir investi beaucoup d'heures à trouver des données réelles, donc d'organisations et institutions réellement à la recherche de bénévoles sans aboutir à des résultats satisfaisants, j'ai pris la décision de dans un premier temps, créer des données fictives en raison du cadre temporelle imposé par le semestre universitaire. Il s'agit de projets existants d'organisation et d'institutions, toutefois il n'est pas explicité s'ils sont réellement à la recherche de bénévoles. Dans un second temps, l'objectif est de contacter les organisations afin de mettre à jour les données fictives avec des données réelles.
+En raison de ce problème rencontré, j'ai mis à disposition au LLM des sources et je lui ai demandé de créer le fichier [projects.json](../src/data/projects.json). Ce fichier allait donc servir de base de données dans un premier temps jusqu'à ce que les données réelles aient pu être mobilisés. Afin d'anticiper cela, le LLM a également créé un script python [convert_xlsx_to_json.py](../src/data/convert_xlsx_to_json.py) afin que dès que le fichier excel soit mis à jour, il peut être transformé en fichier json à travers le script. Ainsi, en quelques clics, les données présentées sur la carte interactives peuvent être mises à jour.
+* Note: Je tiens alors à préciser que le fichier [database_projects.xlsx](../src/data/database_projects.xlsx) n'est seulement une ébauche, qu'il n'a pas été mis à jour et qu'il ne correspond pas aux données dans le fichier [projects.json](../src/data/projects.json).
 
-
-
+En conclusion, mon plan du cadre technique initial a évolué au fur et à mesure de la conception du projet, puisque j'ai rencontré quelques difficultés et que certains choix n'étaient initialement pas bien pensés, en raison de mon manque d'expérience.
 
 ### Création d'un prototype
 
@@ -210,6 +202,8 @@ Future aims
 - contacter organisations pour fournir données réelles sur le fait si elles recherchent des informations
 - publier officiellement le site
 - add contact formular for ONG's so that I can just add the information
+
+- passage a backend serveur car maplibre est service avec quota, et donc ma clé API est publique et donc exposée en frontend - risque d'être volé ou utilisé par quelqu'un d'autre (à modifier si jamais je publie le site)
 
 ## Conclusion
 

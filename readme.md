@@ -57,7 +57,7 @@ Home
     ├── Advantages
 │   └── Risks & Challenges
 ├── Project Map          ← Core interactive feature
-├── Get Involved / Volunteer
+├── Volunteering Guide
 └── Contact
 ```
 
@@ -65,7 +65,7 @@ Home
 - Site title: "Sport for Development Hub"
 - Tagline: "Connecting volunteers with sport-based development 
    projects worldwide."
-- Navigation links: Home | About | Project Map | Get Involved | Contact
+- Navigation links: Home | About | Project Map | Volunteering Guide | Contact
 - Background: Navy `#003459`
 - Text: White `#FFFFFF`
 
@@ -117,7 +117,7 @@ See global footer above.
 
 See [Section 5](#5-interactive-map-feature) for full specification.
 
-#### Get Involved / Volunteer
+#### Volunteering Guide
 A page guiding users on how to volunteer, answering FAQ's.
 
 > ⚠️ **[CONTENT TO BE ADDED]** — FAQ questions, volunteering steps, and any partner organisation links needed.
@@ -209,32 +209,29 @@ Filter logic: AND across different filter categories, OR within the same filter 
 | `sport` | Multi-select | Sport used in the project (e.g. football, basketball, athletics) |
 | `skills_required` | Multi-select | Skills a volunteer needs (e.g. coaching, teaching, medical) |
 | `language` | Multi-select | Language(s) required for volunteering |
+| `duration_of_stay` | Multi-select | Expected duration of volunteer stay |
 
 ### Filter Values
 
 #### Region
 - Africa
 - Asia
-- Australia
-- Central America
 - Europe
 - Latin America and the Caribbean
-- The Middle East
 - North America
 - Oceania
 
 #### Topic
-- Refugee context
-- Gender equality
 - Youth development
-- Disability
+- Gender equality
 - Health
-- Violence prevention
 - Child protection
+- Forced displacement settings
+- Violence prevention
 - Democracy
-- Environment and Sustainability
+- Environment and sustainability
 - Construction of Infrastructure
-- Employment
+- Coaching education programme
 
 #### Target Group
 - Seniors
@@ -289,6 +286,13 @@ Filter logic: AND across different filter categories, OR within the same filter 
 - Portuguese
 - German
 
+#### Duration of Stay
+- 1-3 weeks
+- 1-3 months
+- 4-6 months
+- 1 year
+- Flexible
+
 > Filter logic: AND (cumulative) across all filter categories
 > Within a single filter (e.g. multiple sports selected): OR logic
 
@@ -316,6 +320,7 @@ Each project displayed on the map corresponds to one data record with the follow
   "sport": ["football"],
   "skills_required": ["coaching", "teaching"],
   "language": ["English", "Swahili"],
+  "duration_of_stay": "1-3 months",
   "description": "Short project description (2–3 sentences).",
   "website_url": "https://example.org/project"
 }
@@ -335,12 +340,12 @@ The bottom sheet from mobile and tablet device behaviour shall display between t
 
 | Layer | Technology | Notes |
 |---|---|---|
-| Framework | Plain HTML/CSS/JS | - |
-| Map Library | [Leaflet.js](https://leafletjs.com/) | Open-source, no API key needed |
-| Map Tiles | [OpenStreetMap](https://www.openstreetmap.org/) | Free tile layer for Leaflet |
-| Data Source | Static `projects.json` file | Sufficient for a university prototype |
+| Framework | Plain HTML/CSS/JS | No framework, no back-end server |
+| Map Library | [MapLibre GL JS](https://maplibre.org/) v4.7.1 | Open-source, supports vector tile styles |
+| Map Tiles | [MapTiler](https://www.maptiler.com/) — style *dataviz-v4-light* | Vector tiles — API key required |
+| Data Source | Static `projects.json` file | Converted from `database_projects.xlsx` via Python script |
 | Styling | CSS | - |
-| Hosting | GitHub Pages | Sufficient for my project |
+| Hosting | Local via Live Server (VS Code extension) | Site not yet publicly deployed |
 
 ### File Structure (suggested)
 
@@ -356,7 +361,7 @@ The bottom sheet from mobile and tablet device behaviour shall display between t
 │   └── style.css
 ├── /js
 │   └── app.js        ← data fetching only
-│   └── map.js        ← Leaflet map, pins, side panel / bottom sheet
+│   └── map.js        ← MapLibre GL JS map, pins, side panel / bottom sheet
 │   └── filters.js    ← filter UI and filter logic
 ├── /data
 │   └── projects.json          ← used by the website
@@ -380,7 +385,7 @@ Light text → White `#FFFFFF` on navy backgrounds (like the header)
 heading font: Montserrat
 body font: Inter
 - **Logo / branding** — no logo
-- **Map pin style** — Default Leaflet pin
+- **Map pin style** — Custom SVG pin (MapLibre GL JS)
 - **Language** — English only
 - **Responsive design** — fully functional on laptop, mobile and tablet
 - **Accessibility** — the website should meet WCAG 2.1 AA accessibility standards
