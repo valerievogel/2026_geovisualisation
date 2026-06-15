@@ -1,6 +1,11 @@
 # Document de synthèse
 
-Ce document a pour objectif d'expliquer le contexte, les réflexions et l'évaluation de la géovisualisation créée dans le cadre du cours _géovisualisation P26_. Il abordera les motivations personnelles à l'origine du projet, puis suivra chronologiquement les étapes de sa conception. La vision et le plan ayant guidé la conception du projet seront présentés en premier, puis l'implémentation concrète et l'évaluation seront abordées, avant d'ouvrir une discussion sur de futures pistes d'évolution.
+Ce document a pour objectif d'expliquer le contexte, les réflexions et l'évaluation de la géovisualisation créée dans le cadre du cours _géovisualisation P26_. Il abordera comment accéder au projet de géovisualisation, les motivations personnelles à l'origine du projet, puis suivra chronologiquement les étapes de sa conception. La vision et le plan ayant guidé la conception du projet seront présentés en premier, puis l'implémentation concrète et l'évaluation seront abordées, avant d'ouvrir une discussion sur de futures pistes d'évolution.
+
+## Comment accéder au projet de géovisualisation ?
+
+Afin de pouvoir accéder à ce projet de géovisualisation, il est indispensable de télécharger le fichier ZIP **projet_geovis_Valerie_Vogel**  et d'en extraire tous les fichiers. De plus, il faut télécharger le programme Visual Studio Code.
+Lorsque tous les fichiers ont été téléchargé en local sur l'ordinateur, il faut ouvrir [doc.code-workspace](../doc.code-workspace) avec Visual Studio Code. Ainsi, tous les fichiers s'ouvrent dans Visual Studio Code. Puisque le site n'a pas encore été publié, il faut y accéder localement à travers un _live server_. Pour ce faire, il suffit de faire un clic droite sur le fichier [about.html](../src/about.html), puis sélectionner _Open with Live Server_. Le projet de géovisualisation s'affichera alors dans le navigateur web par défaut de l'utilisateur.
 
 ## Motivation personnelle pour le projet
 
@@ -45,11 +50,22 @@ Différents usability requirements: une fois sur ordinateur, une fois sur smartp
 ### Cadre technique
 
 - HTML + CSS
-- bibliothèque cartographique: Maptiler ??
+La bibliothèque cartographique utilisé pour ce projet est MapLibre GL JS. Il s'agit d'une bibliothèque open source qui gère l'affichage et l'interactivité de la carte.
+Le modèle _dataviz light_ a été extrait comme fond de carte à partir du service de tuiles vectorielles MapTiler. 
+sage weshalb tuiles vectorielles genommen und nicht das andere (=format de données)
+
+Dans un premier temps, j'avais pensé utiliser des tuiles raster et donc j'avais initialement utilisé la bibliothèque Leaflet.js avec des tuiles raster OpenStreetMap.
+Je me suis rendu compte que ... Donc, les tuiles vectorielles ont été préférées aux tuiles raster, car elles offrent un rendu net à tous les niveaux de zoom et permettent d'adapter le style du fond de carte (couleurs, typographie) sans perte de qualité. Cette flexibilité est particulièrement pertinente pour une carte interactive dotée d'un zoom libre, où la lisibilité doit être garantie à toutes les échelles.
+Suite à l'intégration d'un style vectoriel MapTiler, un changement de bibliothèque s'est avéré nécessaire, Leaflet ne supportant pas les styles GL vectoriels (style.json). MapLibre GL JS a alors été adopté, car il prend en charge nativement ce format et permet de tirer pleinement parti des tuiles vectorielles.
+
 - fond de carte (dataviz light grey ?)
 no color pour bien faire ressortir les projets
-- format de données: tiles ? (afin qu'ils soient modifiables)
+sage dass hierfür API key benötigt
+andere Modelle in schwarz-weiss waren nicht gratis (zB von arcgis)
 - serveur ou fichiers statique ? API or excel file finally ?
+
+
+
 
 ### Création d'un prototype
 
@@ -143,7 +159,8 @@ La fonction _clear filters_, placé à droite des filtres à séléctionner (cf.
 
 Pour la représentation cartographique
 - décidé de prendre modèle en noir-blanc afin de faire ressortir les pins bleues qui sont l'information que ma carte a comme objectif de communiquer
-- selon lecture Healy (gleubs präse 1): couleur percu plus vite forme (donc ainsi relever information centrale)
+- selon lecture Healy (gleubs präse 1): couleur percu plus vite forme (donc ainsi relever information centrale) // et ajouter schéma de MacEachren (1995) "L'efficacité des variables visuelles" sur perception d'abord localisation, puis taille, puis couleur
+MacEachren, A. (1995). How maps work: Representation, Visualization & Design. Guildford Press.
 
 
 - justifier vos choix au niveau de la représentation cartographique (sémiologie), de l'interactivité, de la communication graphique et les aspects facilité d'utilisation, efficacité etc.
@@ -188,8 +205,6 @@ Future aims
 ## Bibliographie
 
 Crampton J.W. (2002). Interactivity Types in Geographic Visualization. _Cartography and Geographic Information Science, 29_(2), 85-98. https://doi.org/10.1559/152304002782053314
-
-
 
 Gulliksen, J., Göransson, B., Boivie, I., Blomkvist, S., Persson, J., & Cajander, Å. (2003). Key principles for user-centred systems design. _Behaviour & Information Technology, 22_(6), 397–409. https://doi.org/10.1080/01449290310001624329
 
