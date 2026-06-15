@@ -5,7 +5,7 @@ Ce document a pour objectif d'expliquer le contexte, les réflexions et l'évalu
 ## Comment accéder au projet de géovisualisation ?
 
 Afin de pouvoir accéder à ce projet de géovisualisation, il est indispensable de télécharger le fichier ZIP **projet_geovis_Valerie_Vogel**  et d'en extraire tous les fichiers. De plus, il faut télécharger le programme Visual Studio Code.
-Lorsque tous les fichiers ont été téléchargé en local sur l'ordinateur, il faut ouvrir [doc.code-workspace](../doc.code-workspace) avec Visual Studio Code. Ainsi, tous les fichiers s'ouvrent dans Visual Studio Code. Puisque le site n'a pas encore été publié, il faut y accéder localement à travers un _live server_. Pour ce faire, il suffit de faire un clic droite sur le fichier [about.html](../src/about.html), puis sélectionner _Open with Live Server_. Le projet de géovisualisation s'affichera alors dans le navigateur web par défaut de l'utilisateur.
+Lorsque tous les fichiers ont été téléchargé en local sur l'ordinateur, il faut ouvrir [doc.code-workspace](../doc.code-workspace) avec Visual Studio Code. Ainsi, tous les fichiers s'ouvrent dans Visual Studio Code. Puisque le site n'a pas encore été publié, il faut y accéder localement à travers un _live server_. Pour ce faire, il suffit de faire un clic droite sur le fichier [about.html](../src/about.html), puis sélectionner l'option _Open with Live Server_ ou _Open in integrated browser_ selon la version de Visual Studio Code. Le projet de géovisualisation s'affichera alors dans le navigateur web par défaut de l'utilisateur.
 
 ## Motivation personnelle pour le projet
 
@@ -35,21 +35,31 @@ Ce projet de géovisualisation se compose de deux parties : le site web et la ca
 La carte interactive, quant à elle, vise à répondre à la question:
 - En fonction des compétences et préférences personnelles, où se trouvent des projets de S4D en cours, qui sont à la recherche de bénévoles ?
 
-Ce projet de géovisualisation est donc important car il comble une lacune sur le web. Selon mes connaissances, il n'existe à ce jour aucun répertoire regroupant les projets de diverses organisations de S4D à travers différents pays. Afin de faciliter la recherche pour les utilisateurs, il est pertinent de centraliser l'accès à l'information sur une carte interactive dotée de filtres avancés et l'intégrer dans un site web dédié à la thématique. Ce projet répond ainsi à un besoin concret et identifié.
+Cette géovisualisation est donc importante car ell comble une lacune sur le web. Selon mes connaissances, il n'existe à ce jour aucun répertoire regroupant les projets de diverses organisations de S4D à travers différents pays. Afin de faciliter la recherche pour les utilisateurs, il est pertinent de centraliser l'accès à l'information sur une carte interactive dotée de filtres avancés et l'intégrer dans un site web dédié à la thématique. Ce projet répond ainsi à un besoin concret et identifié.
 
 ### Public-cible
 
-- Personas (pictures) --> mettre source bibliographique
-- Public-cible serait bien-sûre encore bcp plus large mais avec personas un aperçu des personnes types que j'estime qui tomberont sur mon site ou l'utiliseront avec la plus grande probabilité
+Afin de pouvoir créer un UCSD, il est indispensable de connaître les besoins de l'utilisateur et la _usability_ (Gulliksen et al., 2003). A cette fin, deux personas ont été imaginées dans le cadre de ce projet (cf. figure xx et figure xx). Les personas sont des personnes ou des utilisateurs types fictionnels qui représentent différents comportements, objectifs et motivations jugés représentatifs du public-cible. Le public-cible est bien entendu composé de plus de diversité. Toutefois, imaginer la description d'un utilisateur type et dans quelles situations il utilise la géovisualisation, permet de concevoir un design adapté (Calde et al., 2002).
 
 ![Persona 1](../src/assets/persona1.JPG)
 ![Persona 2](../src/assets/persona2.JPG)
 
-Différents usability requirements: une fois sur ordinateur, une fois sur smartphone (et j'inclus tablet là-dedans) - besoin de design différents vue que taille d'écran différente et manière d'interagir différentes
+La définition des personas a permis de prendre des décisions sur divers aspects de la conception. Pour le site web, il en découlait qu'il ne serait créé qu'en anglais, puisque les deux personas sont plutôt jeunes et voyageuses, et disposent donc très probablement de bases dans cette langue.
+Étant donné que les personas sont jeunes, elles ont également en commun d'être à l'aise en informatique et dans l'utilisation d'outils technologiques. Quant aux connaissances en cartographie, l'une des personas en a davantage que l'autre. Toutefois, aucune des deux n'est considérée comme experte dans ce domaine. Ainsi, il était clair qu'il fallait concevoir une carte destinée à des profanes plutôt qu'à des experts.
+Bien que les deux personas soient passionnées par le sport, seule l'une d'entre elles effectue une recherche ciblée pour des projets de S4D. La persona 2 n'en a jamais entendu parler. Ce constat a conduit à la décision d'intégrer la carte interactive dans un site web afin de la contextualiser. L'objectif étant de centraliser les informations, il semblait pertinent, au vu de ces scénarios d'utilisation, de concevoir une introduction à l'approche afin que l'utilisateur ne doive pas naviguer sur d'autres sites pour comprendre de quoi il s'agit.
+La définition des personas a également permis de réfléchir aux filtres à intégrer à la carte interactive en fonction des objectifs, motivations, souhaits et compétences propres à chaque persona.
+Les contextes de l'utilisation de la géovisualisation sont distincts. Persona 1 effectue une recherche rapide sur son smartphone, tandis que persona 2 fait une recherche avancée sur son ordinateur. Ce constat a mis en évidence la nécessité d'adapter le design à l'appareil sur lequel la géovisualisation sera utilisée. Les modes d'interaction ainsi que les tailles d'écrans diffèrent entre les smartphones et les ordinateurs. Ces considérations ont guidé la planification du projet, afin d'adapter le design et les fonctionnalités de la géovisualisation aux contraintes de chaque type d'appareil.
 
 ### Cadre technique
 
-- HTML + CSS
+Avant d'implémenter le projet, il est important de réfléchir au cadre technique. A travers la bonne planification de ce-même permet d'anticiper la cohérence et la compatibilité entre les différents outils et programmes.
+
+Durant la planification, il a donc été définie que le site web allait être développé en HTML, CSS et JavaScript. Le fichier HTML permet de structurer le contenu, alors que le fichier CSS définit le style visuel et le JavaScript est dédié à l'interactivité du site. J'ai pris ces choix en fonction de recommendations du LLM qui affirmait que cette combinaison constitue l'approche standard pour le développement de sites web statiques. J'ai souhaité programmer le site depuis la base sans utiliser aucun framework.
+Des échanges avec le LLM et des recherches approfondies m'ont mené à prendre la décision de ne pas utiliser de _back-end server_.
+- étant donné que pour l'instant contenu pas dynamique
+- Les données des projets sont dans un simple fichier projects.json (statique)
+- Il n'y a pas de login, pas de formulaire traité, pas de base de données
+
 La bibliothèque cartographique utilisé pour ce projet est MapLibre GL JS. Il s'agit d'une bibliothèque open source qui gère l'affichage et l'interactivité de la carte.
 Le modèle _dataviz light_ a été extrait comme fond de carte à partir du service de tuiles vectorielles MapTiler. 
 sage weshalb tuiles vectorielles genommen und nicht das andere (=format de données)
@@ -119,11 +129,12 @@ Tout au long de la conception, autant pour le site web que pour la carte interac
  - avec navigation bar en-haut à droite
  - buttons aussi sur les sections 'about' et 'volunteering guide', décidé de ne pas les mettre sur la section de la carte afin de ne pas surcharger ce site, garder le focus sur la carte interactive et aussi puisque c'est l'élément central où je souhaite que le user reste
 
-
 --> écriture et polices: Sans serif pour titre (sans les empattements en-bas des lettres) // Avec serif pour texte (nous permet de lire plus rapidement, car ca fait comme s'il y avait ligne dessous) (présentation 3b)
 
 Pour la section _Focus Areas_ de la page _About Sport for Development_, l'idée initiale était de concevoir des hexagones avec des icônes représentant les différentes thématiques au sein desquelles les projets de S4D opèrent. En survolant les hexagones, davantage d'informations sur la thématique devaient s'afficher.
 Toutefois, après avoir implémenté une première version des hexagones sur le site, le design ne m'a pas convaincue. Avec du recul, je me suis demandé si ce design apportait réellement une plus-value à l'utilisateur. Munzner (2014) affirme qu'il faut non seulement réfléchir à l'utilité que la 3D peut apporter, mais également se demander si une représentation visuelle est justifiée, car une simple liste permet parfois de représenter l'information de manière tout aussi concise. Après réflexion, j'ai réalisé que la représentation sous forme d'hexagones retournables avec icônes n'était pas justifiée. En appliquant le principe de simplicité (Gulliksen et al., 2003), il semblait plus pertinent de créer un accordéon, qui remplit aussi bien la tâche de donner une vue d'ensemble des thématiques et d'afficher davantage d'informations en un clic, si l'utilisateur souhaite en explorer une. 
+
+Comme évoqué dans le chapitre dédié à la planification, des réflexions et des adaptations de design ont été faites en fonction des contraintes de chaque type d'appareil. Sur ordinateur, une marge blanche de chaque côté a été conçue afin de faire ressortir le contenu. Sur le smartphone avec une taille d'écran limitée, ces marges ont été supprimées en dessous de 600 pixels de largeur d'écran.
 
 
 **La carte interactive**
@@ -203,6 +214,8 @@ Future aims
 ## Conclusion
 
 ## Bibliographie
+
+Calde, S., Goodwin, K., & Reimann, R. (2002). SHS Orcas: The first integrated information system for long-term healthcare facility management. _Proceedings of the Conference on Human Factors and Computing Systems: CHI 2002/AIGA Experience Design Forum._ ACM Press.
 
 Crampton J.W. (2002). Interactivity Types in Geographic Visualization. _Cartography and Geographic Information Science, 29_(2), 85-98. https://doi.org/10.1559/152304002782053314
 
