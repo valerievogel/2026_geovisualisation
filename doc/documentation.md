@@ -40,12 +40,69 @@ Ce projet de géovisualisation est donc important car il comble une lacune sur l
 
 ## La visualisation
 
+von Präse: 05b_viz_example_pres --> approche 'documentation d'abord': 1. Documentation (définir objectifs, contenu et cadre technique d'abord)
+- donc aussi créé un prototype (d'abord dessin sur papier, puis demandé à LLM de créer prototype site web) -- add pictures
+2. Implémentation
+3. Evlauation
+
 ### Description
 
 ### Réfléxions et justifications 
 
--sémiologie, interactions, communication graphique etc.
+SITE WEB
+ --> strive for consistency - toujours même couleurs sur site web (définirion de primary color, accent color etc.) -- (Shneiderman & Plaisant, 2004, 8 règles d'or)
+
+ --> vue initiale prête: landing page montre directement toutes les sections à découvrir, dit de quelle thématique le site parle
+ et aussi _enable frequent users to use shortcuts_ : 'shortcut' directe vers la carte est possible (Shneiderman & Plaisant, 2004)
+
+ --> offer simple error handling: possible de revenir sur la landing page en cliquant en-haut à droite sur _Sport for Development Hub_ // back button 
+
+ --> prendre utilisateur par la main: le naviguer
+ - avec buttons sur introduction cards sur landing page
+ - avec navigation bar en-haut à droite
+ - buttons aussi sur les sections 'about' et 'volunteering guide', décidé de ne pas les mettre sur la section de la carte afin de ne pas surcharger ce site, garder le focus sur la carte interactive et aussi puisque c'est l'élément central où je souhaite que le user reste
+
+
+--> écriture et polices: Sans serif pour titre (sans les empattements en-bas des lettres) // Avec serif pour texte (nous permet de lire plus rapidement, car ca fait comme s'il y avait ligne dessous) (présentation 3b)
+
+
+
+CARTE
+--> appliqué le 'mantra de Shneiderman': «Overview first, zoom and filter, then details on demand» (présentation 5a et Shneiderman, B. (1996). The Eyes Have It: A Task by Data Type Taxonomy for Information Visualizations. Proc. IEEE Symposium on Visual Languages, 336–343.)
+- Interactions: d'abord overview - directement vue sur la carte zoom mondial pour la vue d'ensemble
+--> règle de 'vue initiale prête' (présentation 4b)
+- possible de filtrer dans un second temps pour plus d'infos et de zoom in pour avoir plus d'infos (gentilment batiments, routes etc plus de détails qui s'affichent)
+- details on demand: en faisant un hover over, et encore plus de détails en cliquant dessus
+--> hover over (que fonctionnel et pertinent pour ordi pas des interfaces qui fonctionnent majoritairement avec un touchscreen): économiser les clics (efficient)
+--> Options avancées avec un seul clic (cliquer sur pin, puis cliquer sur lien pour arriver à nouveau site web)
+
+--> Interaction Carte
+- chaque interaction doit servir une tâche spécifique (présentation 5a)
+- Cases à cocher → sélection multiple (présentation 4b)
+
+- offer informative feedback: pin turns 'transparent' when filters don't apply - stay dark blue if filters apply AND informative feedback of pin turning to 'accent color' so show that one can click on it
+
+La règle d'or 3 de Shneiderman et Plaisant (2004) exige d'offrir un retour informatif. Sur la carte interactive, cela a été pris en compte par les choix suivants:
+- une transparence plus élevé des _pins_ sur la carte lorsque le critère d'un filtre ne s'applique pas à un projet, afin de faire ressortir les projets auxquels ce critère s'applique (cf. figure xx) 
+- le changement de couleur du _pin_ de la _primary color_ à _accent color_, lorsque l'utilisateur le survole avec la souris afin de signaler qu'il est possible de cliquer dessus (cf. figure xx)
+- l'affichage d'un résumé synthétique lorsque l'utilisateur survole avec la souris un projet afin de lui permettre une vue d'ensemble pour savoir s'il est intéressé ou non à poursuivre la recherche et obtenir davantage d'informations (cf. figure xx).
+
+![Informative Feedback](../src/assets/informative_feedback.JPG)
+Figure xx - Un retour informatif
+
+Les explications ci-dessus montrent que toute action permettant d'interagir avec l'interface est initiée par l'utilisateur, ce qui correspond à la règle 7 _Support internal locus of control_ (Shneiderman & Plaisant, 2004). L'utilisateur ne réagit pas à une action imposée, mais c'est lui qui a le contrôle de l'initier.
+
+La règle d'or 4, qui demande d'établir une séquence guidée par une progression et une fin clairement définie, a été prise en compte (Shneiderman & Plaisant, 2004). La séquence commence par une vue initiale de la carte affichant les projets avec les _pins_ bleues. L'utilisateur peut ensuite appliquer des filtres, _hover over_ un projet pour afficher des informations synthétiques, cliquer dessus pour en afficher davantage, et finalement soit cliquer sur le lien redirigeant vers le site de l'organisation concernée, soit revenir en arrière en cliquant sur un autre projet ou en utilisant _clear filters_. La séquence prend ainsi une fin définie.
+
+La fonction _clear filters_, placé à droite des filtres à séléctionner (cf. figure xx), répond à la règle d'or _permit easy reversal of actions_ (Shneiderman & Plaisant, 2004). Ainsi, si l'utilisateur a par erreur coché une case qu'il ne souhaitait pas sélectionner,il peut en un seul clic revenir à la vue initiale affichant tous les projets existants, grâce à la fonction _clear filters_ qui supprime la sélection des filtres appliqués.
+
+![Clear Filters](../src/assets/clear_filters.JPG)
+Figure xx - La fonction _clear filters_
+
+
 - justifier vos choix au niveau de la représentation cartographique, de l'interactivité, de la communication graphique et les aspects facilité d'utilisation, efficacité etc.
+-sémiologie, interactions, communication graphique etc.
+
 
 ## Evaluation
 

@@ -183,7 +183,7 @@ a:hover { text-decoration: underline; }
 .page-hero--about {
   background:
     linear-gradient(rgba(0,52,89,.20), rgba(0,52,89,.20)),
-    url('../assets/about_page.jpg') 65% 40% / cover no-repeat;
+    url('../assets/about_new.jpg') center 48%/cover no-repeat;
 }
 
 .page-hero--volunteer {
