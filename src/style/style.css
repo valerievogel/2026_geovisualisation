@@ -179,10 +179,36 @@ a:hover { text-decoration: underline; }
   padding-top: 2.5rem;
 }
 
+/* ── Per-page hero overrides ──────────────────────────── */
+.page-hero--about {
+  background:
+    linear-gradient(rgba(0,52,89,.20), rgba(0,52,89,.20)),
+    url('../assets/about_page.jpg') 65% 40% / cover no-repeat;
+}
+
+.page-hero--volunteer {
+  background:
+    linear-gradient(rgba(0,52,89,.20), rgba(0,52,89,.20)),
+    url('../assets/volunteering_guide.jpg') center/cover no-repeat;
+}
+
 /* ── About page images ────────────────────────────────── */
 .about-image {
   margin: 1.5rem 0;
   text-align: center;
+}
+
+.about-image-inner {
+  display: inline-block;
+  text-align: left;
+}
+
+/* ── Figure caption / credit ─────────────────────────── */
+.fig-credit {
+  font-size: 0.75rem;
+  color: #aab4be;
+  text-align: left;
+  margin-top: 0.4rem;
 }
 
 /* ── Section sub-heading (text-like) ─────────────────── */
