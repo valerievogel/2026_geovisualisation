@@ -231,7 +231,8 @@ Filter logic: AND across different filter categories, OR within the same filter 
 - Democracy
 - Environment and sustainability
 - Construction of Infrastructure
-- Coaching education programme
+- Education
+- Coaching programme
 
 #### Target Group
 - Seniors
