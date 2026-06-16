@@ -4970,3 +4970,129 @@ Close panel/sheet (× button) → pin resets
 Filter change (updatePins) → pin resets
 Click map background (not on any pin) → pin resets
 The active state uses the same accent color as hover but with a slightly different drop-shadow so it reads as "selected" rather than just "hovered".
+
+## Prompt accordion - volunteering guide
+
+create the structure of an accordion for the FAQ section in the @src/volunteer.html  , like the one in the _focus areas_ section in the page @src/about.html  
+
+simpy add 'placeholder title' and 'placeholder text' as texts
+
+don't hesitate to ask questions
+
+
+I'll add the accordion structure to the FAQ section in volunteer.html, replicating the pattern from about.html, and wire up the same JS.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Involved — Sport for Development Hub</title>
+  <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+
+  <div class="site-wrapper">
+
+  <nav class="site-nav" aria-label="Main navigation">
+<a href="index.html" class="brand">Sport for Development Hub</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    <div class="nav-links" role="list">
+      <a href="index.html" role="listitem">Home</a>
+      <a href="about.html" role="listitem">About</a>
+      <a href="map.html" role="listitem">Project Map</a>
+      <a href="volunteer.html" class="active" role="listitem">Volunteering Guide</a>
+      <a href="contact.html" role="listitem">Contact</a>
+    </div>
+  </nav>
+
+  <section class="page-hero page-hero--volunteer" aria-hidden="true"></section>
+
+  <div class="page-card-wrapper">
+  <main class="page-content">
+    <h1>Volunteer Guide</h1>
+
+    <section aria-labelledby="volunteer-heading">
+      <h2 id="volunteer-heading">How to Volunteer</h2>
+      <p class="placeholder-text">[CONTENT TO BE ADDED] — Step-by-step guide on how to find and apply for volunteer opportunities in Sport for Development projects.</p>
+    </section>
+
+    <section aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+
+      <div class="accordion" id="faq-accordion">
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-faq-1">
+            Placeholder title <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-faq-1" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text.</p></div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-faq-2">
+            Placeholder title <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-faq-2" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text.</p></div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-faq-3">
+            Placeholder title <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-faq-3" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text.</p></div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-faq-4">
+            Placeholder title <span class="accordion-icon">&#9660;</span>
+          </button>
+          <div class="accordion-panel" id="panel-faq-4" role="region">
+            <div class="accordion-panel-inner"><p>Placeholder text.</p></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="about-cta">
+      <a href="map.html" class="btn btn-primary">Find a Project &rarr;</a>
+      <a href="about.html" class="btn btn-outline-dark">About S4D &rarr;</a>
+    </div>
+  </main>
+  </div><!-- /.page-card-wrapper -->
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Valerie Vogel &mdash; Master in Development and Environment, UNIL</p>
+  </footer>
+
+  </div><!-- /.site-wrapper -->
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const links  = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+
+    document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const panel = document.getElementById(trigger.getAttribute('aria-controls'));
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+        trigger.setAttribute('aria-expanded', !isOpen);
+        panel.classList.toggle('open', !isOpen);
+      });
+    });
+  </script>
+
+</body>
+</html>
+
+Done. The FAQ section now has 4 accordion items with placeholder titles and text, using the exact same markup pattern and JS as the Focus Areas accordion in about.html. Just swap in the real question/answer text when you're ready.
