@@ -4897,3 +4897,76 @@ The outer border is now a light --border grey, not full primary blue
 When a row is open, a 4px accent-green left bar appears on that item
 Hover is a very soft blue-grey tint
 The chevron is muted grey so it doesn't compete with the text
+
+# Exchanges with Agent - 16.06.2026
+
+## Prompt 'petite note'
+ajouter dans text boxe blanche lors qu'on hover over un pin, tout en-bas
+en police d'écriture petite et italitque
+* click to read more
+
+Let me look at the current popup code in map.js.
+
+Grep "popup|hover|tooltip|bindPopup|openPopup" (in src/js/map.js)
+6 lines of output
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Grep "html.*sport|sport.*html|innerHTML|tooltipHtml|buildTooltip|_showTooltip\(" (in src/js/map.js)
+6 lines of output
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js (lines 101-150)
+Now I can see the tipHTML on line 118–120. I'll add the "* click to read more" line at the bottom.
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 1 line
+Now add the CSS for .tip-read-more. Let me find where the tooltip styles are defined.
+
+Grep "map-leader-tooltip" (in src)
+2 lines of output
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 651-675)
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 6 lines
+Done. The tooltip now shows * click to read more at the bottom in small italic grey text. The text is in a <span class="tip-read-more"> styled at 0.72rem italic with a muted #777 colour
+
+
+## Prompt - garder le pin en accent color
+si j'ai cliqué sur pin - et que la textbox s'affiche à droit, je veux que le pin soit en accent color jusqu'à ce que l'utilisateur clique ailleurs, sur un autre projet ou séléctionne d'autres filtres ou recommence un recherche
+Let me read the relevant parts of map.js to understand the full pin/card flow.
+
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Now let me check the accent color defined in the CSS.
+
+Grep "accent|--accent" (in src/style/style.css)
+14 lines of output
+Now I have everything I need. I'll:
+
+Track the active pin in a variable
+Set/clear accent class on click, close, filter change, and map-background click
+Add the CSS
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 1 line
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 6 lines
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Modified
+Now add the map background click to clear the active pin, and handle close buttons + filter changes:
+
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 5 lines
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 2 lines
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\js\map.js
+Added 1 line
+Now add the CSS for the active pin state:
+
+Grep "\.map-pin" (in src/style/style.css)
+3 lines of output
+Read c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css (lines 686-705)
+Edit c:\Users\Valerie\Documents\uni\Uni Lausanne\SP26\géovisualisation\projet\src\style\style.css
+Added 6 lines
+Done. Here's what was added:
+
+Click a pin → pin turns accent green (#93C0A4) and stays slightly scaled up
+Click another pin → previous pin resets, new one becomes active
+Close panel/sheet (× button) → pin resets
+Filter change (updatePins) → pin resets
+Click map background (not on any pin) → pin resets
+The active state uses the same accent color as hover but with a slightly different drop-shadow so it reads as "selected" rather than just "hovered".

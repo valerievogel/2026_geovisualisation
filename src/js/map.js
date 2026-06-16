@@ -1,5 +1,6 @@
 let glMap;
 let markerList = [];
+let _activePin = null;
 
 /* ── Leader-line tooltip ─────────────────────────────────────────────────── */
 
@@ -80,6 +81,12 @@ function _hideTooltip() {
   if (_line) _line.setAttribute('points', '');
 }
 
+function _setActivePin(el) {
+  if (_activePin) _activePin.classList.remove('map-pin--active');
+  _activePin = el || null;
+  if (_activePin) _activePin.classList.add('map-pin--active');
+}
+
 /* ── Map initialisation ──────────────────────────────────────────────────── */
 
 function initMap(projects) {
@@ -89,6 +96,7 @@ function initMap(projects) {
     center: [15, 15],
     zoom: 1.5,
     minZoom: 1,
+    renderWorldCopies: false,
   });
 
   glMap.addControl(new maplibregl.NavigationControl({
@@ -116,11 +124,12 @@ function initMap(projects) {
 
       const tipHTML =
         `<strong>${project.name}</strong><br>${project.organisation}<br>` +
-        `<em>${project.sport.join(', ')}</em>`;
+        `<em>${project.sport.join(', ')}</em>` +
+        `<br><span class="tip-read-more">* click to read more</span>`;
 
       el.addEventListener('mouseenter', () => _showTooltip(el, tipHTML));
       el.addEventListener('mouseleave', _hideTooltip);
-      el.addEventListener('click',      () => showProjectCard(project));
+      el.addEventListener('click', () => { _setActivePin(el); showProjectCard(project); });
 
       return { project, marker };
     });
@@ -128,6 +137,11 @@ function initMap(projects) {
 
   document.getElementById('close-panel').addEventListener('click', closeSidePanel);
   document.getElementById('close-sheet').addEventListener('click', closeBottomSheet);
+
+  // Clear active pin when clicking the map background (not a pin)
+  document.getElementById('map').addEventListener('click', e => {
+    if (!e.target.closest('.map-pin')) _setActivePin(null);
+  });
 }
 
 /* ── Project card ────────────────────────────────────────────────────────── */
@@ -170,6 +184,7 @@ function buildCardHTML(p) {
 /* ── Filter integration ──────────────────────────────────────────────────── */
 
 function updatePins(filteredProjects) {
+  _setActivePin(null);
   const visibleIds = new Set(filteredProjects.map(p => p.id));
   markerList.forEach(({ project, marker }) => {
     marker.setOpacity(visibleIds.has(project.id) ? '1' : '0.15');
@@ -180,8 +195,10 @@ function updatePins(filteredProjects) {
 
 function closeSidePanel() {
   document.getElementById('side-panel').classList.add('hidden');
+  _setActivePin(null);
 }
 
 function closeBottomSheet() {
   document.getElementById('bottom-sheet').classList.remove('open');
+  _setActivePin(null);
 }

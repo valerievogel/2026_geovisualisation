@@ -668,6 +668,12 @@ a.intro-card:hover {
   word-break: break-word;
 }
 
+.tip-read-more {
+  font-size: .72rem;
+  font-style: italic;
+  color: #777;
+}
+
 /* ── Map page title ───────────────────────────────────── */
 .map-title {
   margin: 1.25rem 2rem 1rem;
@@ -690,6 +696,12 @@ a.intro-card:hover {
   color: var(--accent);
   transform: scale(1.2);
   filter: drop-shadow(0 4px 8px rgba(0, 52, 89, 0.55));
+}
+
+.map-pin--active {
+  color: var(--accent);
+  transform: scale(1.15);
+  filter: drop-shadow(0 4px 10px rgba(147, 192, 164, 0.7));
 }
 
 .map-pin svg {
