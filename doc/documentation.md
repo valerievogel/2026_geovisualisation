@@ -7,6 +7,9 @@ Ce document a pour objectif d'expliquer le contexte, les réflexions et l'évalu
 Afin de pouvoir accéder à ce projet de géovisualisation, il est indispensable de télécharger le fichier ZIP **projet_geovis_Valerie_Vogel**  et d'en extraire tous les fichiers. De plus, il faut télécharger le programme Visual Studio Code.
 Lorsque tous les fichiers ont été téléchargés en local sur l'ordinateur, il faut ouvrir [doc.code-workspace](../doc.code-workspace) avec Visual Studio Code. Ainsi, tous les fichiers s'ouvrent dans Visual Studio Code. Puisque le site n'a pas encore été publié, il faut y accéder localement à travers un _live server_. Pour ce faire, il suffit de faire un clic droit sur le fichier [index.html](../src/index.html), puis sélectionner l'option _Open with Live Server_ ou _Open in integrated browser_ selon la version de Visual Studio Code. Le projet de géovisualisation s'affichera alors dans le navigateur web par défaut de l'utilisateur.
 
+Si pour une raison quelconque, cet accès ne fonctionne pas, il est possible d'accéder au projet de géovisualisation par GitHub. Voici le lien: [Projet de Géovisualisation - GitHub](https://github.com/valerievogel/2026_geovisualisation.git). La branche à évaluer est appelée _main_. Il faut télécharger tous les fichiers dans la branche _main_ et les enregistrer en local. Puis, il faut ouvrir [doc.code-workspace](../doc.code-workspace) avec Visual Studio Code. Ainsi, tous les fichiers s'ouvrent dans Visual Studio Code.
+Comme déjà expliqué ci-dessus, l'accès au site se fait à travers le _live server_ en faisant un clic droit sur [index.html](../src/index.html) en sélectionnant l'option _Open with Live Server_ ou _Open in integrated browser_.
+
 ## Motivation personnelle pour le projet
 
 Tout d'abord, je souhaite expliquer comment j'ai décidé de créer un site web et une carte interactive sur le sujet _Sport for Development (S4D)_.
