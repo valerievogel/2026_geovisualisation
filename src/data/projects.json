@@ -228,13 +228,13 @@
     "website_url": "https://fightforchicago.org/"
   },
   {
-    "id": "sbs-australia-013",
+    "id": "sbs-samoa-013",
     "name": "Get into Rugby PLUS program",
     "organisation": "Samoa Rugby Union",
     "organisation_type": "Sports structure or club",
-    "country": "Australia",
+    "country": "Samoa",
     "region": "Oceania",
-    "city": "Samoa",
+    "city": "Apia",
     "latitude": -13.5833,
     "longitude": -172.3333,
     "topic": ["Youth development", "Gender equality", "Violence prevention"],
@@ -266,7 +266,7 @@
     "website_url": "https://www.specialolympics.org"
   },
   {
-    "id": "sip-rwanda-015",
+    "id": "sip-tanzania-015",
     "name": "Sport Infrastructure Programme – Ma Balle - Ta Balle",
     "organisation": "Ma Balle - Ta Balle",
     "organisation_type": "Non-profit organization",

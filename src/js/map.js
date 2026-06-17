@@ -188,6 +188,8 @@ function buildCardHTML(p) {
 
 function updatePins(filteredProjects) {
   _setActivePin(null);
+  closeSidePanel();
+  closeBottomSheet();
   const visibleIds = new Set(filteredProjects.map(p => p.id));
   markerList.forEach(({ project, marker }) => {
     marker.setOpacity(visibleIds.has(project.id) ? '1' : '0.15');
