@@ -97,11 +97,14 @@ function initMap(projects) {
     zoom: 1.5,
     minZoom: 1,
     renderWorldCopies: false,
+    dragRotate: false,
   });
+
+  glMap.touchZoomRotate.disableRotation();
 
   glMap.addControl(new maplibregl.NavigationControl({
     showZoom: true,
-    showCompass: true
+    showCompass: true,
   }));
 
   glMap.on('load', () => {
